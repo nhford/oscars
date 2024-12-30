@@ -1,5 +1,13 @@
 import Image from "next/image";
 import Film from "./film";
+import Gallery from "./gallery";
+import data from "./assets/index.json";
+
+interface MovieData {
+  [key: string]: string;
+}
+
+const movies: MovieData = data;
 
 export default function Home() {
   return (
@@ -19,14 +27,15 @@ export default function Home() {
             <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
               src/app/page.tsx
             </code>
-            <Image
+            {/* <Image
               className="dark:invert"
               src="/films/ABM.jpg"
               alt="Vercel logomark"
               width={200}
               height={200}
-            />
-            <Film abbrev={"ABM"} />
+            /> */}
+            <Film abbrev={"ABM"} title={movies["ABM"]} />
+            <Gallery />
           </li>
           <li>Save and see your changes instantly.</li>
         </ol>

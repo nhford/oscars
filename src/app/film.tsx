@@ -1,25 +1,22 @@
 import Image from "next/image";
-import data from "../public/input/index.json";
-
-interface MovieData {
-  [key: string]: string;
-}
-
-const movies: MovieData = data;
 
 interface FilmProps {
   abbrev: string;
+  title: string;
 }
 
-function Film({ abbrev }: FilmProps) {
+function Film({ abbrev, title }: FilmProps) {
   return (
-    <Image
-      className="film"
-      src={`/films/${abbrev}.jpg`}
-      alt={movies[abbrev]}
-      width={200}
-      height={200}
-    />
+    <>
+      <Image
+        className="film"
+        src={`/films/${abbrev}.jpg`}
+        alt={title}
+        width={200}
+        height={200}
+      />
+      <h3>{title}</h3>
+    </>
   );
 }
 
