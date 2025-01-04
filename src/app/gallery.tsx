@@ -1,25 +1,18 @@
-import data from "./assets/index.json";
 import Film from "./film";
+import PropTypes from "prop-types";
 
-interface MovieData {
-  [key: string]: string;
-}
-
-const movies: MovieData = data;
-
-// interface GalleryProps {
-//   abbrev: string;
-//   title: string;
-// }
-
-function Gallery() {
+function Gallery({ movies }) {
   return (
-    <>
+    <div className="gallery">
       {Object.entries(movies).map(([abbrev, title]) => (
         <Film key={abbrev} abbrev={abbrev} title={title} />
       ))}
-    </>
+    </div>
   );
 }
+
+Gallery.proptypes = {
+  movies: PropTypes.object.isRequired,
+};
 
 export default Gallery;

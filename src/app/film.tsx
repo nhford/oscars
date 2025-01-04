@@ -1,3 +1,6 @@
+"use client";
+
+import React, { useState } from "react";
 import Image from "next/image";
 
 interface FilmProps {
@@ -6,8 +9,17 @@ interface FilmProps {
 }
 
 function Film({ abbrev, title }: FilmProps) {
+  const [isFlipped, setIsFlipped] = useState(false);
+
+  const handleClick = () => {
+    setIsFlipped(!isFlipped);
+  };
+
   return (
-    <>
+    <div className={`film${isFlipped ? "flipped" : ""}`} onClick={handleClick}>
+      {/* <div className="filmInner"> */}
+      {/* Front */}
+      {/* <div className="film-front"> */}
       <Image
         className="film"
         src={`/films/${abbrev}.jpg`}
@@ -15,8 +27,11 @@ function Film({ abbrev, title }: FilmProps) {
         width={200}
         height={200}
       />
-      <h3>{title}</h3>
-    </>
+      {/* </div> */}
+      {/* Back */}
+      {/* <div className="film-back"></div> */}
+      {/* </div> */}
+    </div>
   );
 }
 
