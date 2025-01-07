@@ -4,11 +4,13 @@ import React, { useState } from "react";
 import Image from "next/image";
 
 interface FilmProps {
-  abbrev: string;
+  name: string;
   title: string;
+  path: string;
+  type: string;
 }
 
-function Film({ abbrev, title }: FilmProps) {
+function Film({ name, title, path, type }: FilmProps) {
   const [isFlipped, setIsFlipped] = useState(false);
 
   const handleClick = () => {
@@ -21,8 +23,8 @@ function Film({ abbrev, title }: FilmProps) {
       {/* Front */}
       {/* <div className="film-front"> */}
       <Image
-        className="film"
-        src={`/films/${abbrev}.jpg`}
+        className={path}
+        src={`/${path}/${name}.${type}`}
         alt={title}
         width={200}
         height={200}

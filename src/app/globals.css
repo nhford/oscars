@@ -3,15 +3,19 @@
 @tailwind utilities;
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: white;
+  --foreground: black;
 }
 
-@media (prefers-color-scheme: dark) {
+/* @media (prefers-color-scheme:) {
   :root {
     --background: #0a0a0a;
     --foreground: #ededed;
   }
+} */
+
+h1, h2 {
+  margin: 10px;
 }
 
 body {
@@ -27,6 +31,8 @@ body {
   grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
   /* Dynamically create columns based on available space */
   justify-content: center; /* Center the grid items horizontally */
+  margin-left: 10%;
+  margin-right: 10%;
 }
 
 .gallery img {
