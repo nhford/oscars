@@ -24,6 +24,11 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
+/* .left_container {
+  margin-left: 5%;
+  margin-right: 5%;
+} */
+
 .gallery {
   display: grid;
   gap: 16px; /* Space between items */
@@ -31,8 +36,6 @@ body {
   grid-template-columns: repeat(auto-fit, minmax(max(45px,10%), 1fr));
   /* Dynamically create columns based on available space */
   justify-content: center; /* Center the grid items horizontally */
-  margin-left: 10%;
-  margin-right: 10%;
 }
 
 .gallery img {
