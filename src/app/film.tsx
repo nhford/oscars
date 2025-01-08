@@ -29,6 +29,7 @@ function Film({ name, title, path, type }: FilmProps) {
         width={200}
         height={200}
       />
+      {`/${path}/${name}.${type}`}
       {/* </div> */}
       {/* Back */}
       {/* <div className="film-back"></div> */}

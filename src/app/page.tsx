@@ -1,6 +1,7 @@
 // import Image from "next/image";
 // import Film from "./film";
 import Gallery from "./gallery";
+import Title from "./title";
 import data from "./assets/movies.json";
 import { Movie, normalizeTitle } from "./util";
 
@@ -20,9 +21,7 @@ export default function Home() {
   return (
     <>
       <main>
-        <h1 className="text-5xl font-bold text-center text-white-800 md:text-6xl lg:text-7xl my-4">
-          Noah Oscars
-        </h1>
+        <Title />
         <Heading2 text="How it Works" />
         <Heading2 text="Movies Watched This Year" />
         <Gallery movies={movies} path={"film"} />
@@ -32,7 +31,7 @@ export default function Home() {
         <Heading2 text="H3: Best Supporting Actor" />
         <Gallery
           movies={movies.filter((film) => film.supporting != null)}
-          path={"film"}
+          path="supp"
         />
         <Heading2 text="H3: Best Actor" />
         <Gallery

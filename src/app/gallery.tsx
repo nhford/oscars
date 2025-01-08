@@ -2,7 +2,13 @@ import Film from "./film";
 import PropTypes from "prop-types";
 import { Movie } from "./util";
 
-function Gallery({ movies, path }: { movies: Movie[]; path: string }) {
+function Gallery({
+  movies,
+  path,
+}: {
+  movies: Movie[];
+  path: "film" | "supp" | "actor";
+}) {
   return (
     <div className="gallery">
       {path == "film"
@@ -18,7 +24,7 @@ function Gallery({ movies, path }: { movies: Movie[]; path: string }) {
         : movies.map((film) => (
             <Film
               key={film.id}
-              name={`${film.actorId}_${film.id}`}
+              name={`${film[`${path}Id`]}_${film.id}`}
               title={film.title}
               path={path}
               type="png"
