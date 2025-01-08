@@ -13,7 +13,7 @@ export default function SwitchLabels({ checked, setChecked }: checkState) {
   };
   return (
     <FormControlLabel
-      className="text-base text-black"
+      className="text-base text-center text-gray-800 md:text-lg lg:text-xl"
       control={<Switch checked={checked} onChange={handleChange} />}
       label="Hide Posters"
       labelPlacement="start"

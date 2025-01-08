@@ -17,9 +17,8 @@ function Gallery({
 
   return (
     <>
-      <h3 className="text-lg text-center text-black mt-4">
-        Here are the {movies.length} elgible movies for Noah Oscar
-        consideration.
+      <h3 className="text-base text-center text-gray-800 md:text-lg lg:text-xl">
+        Here are the {movies.length} eligible films for consideration
       </h3>
       <div className="text-center">
         <ControlledSwitch checked={hidden} setChecked={setHidden} />
@@ -50,26 +49,26 @@ function Gallery({
       {hidden && (
         <>
           <div className="flex flex-col md:flex-row m-2">
-            <div className="w-full md:w-1/2 p-4 bg-gray-100 mt-2 p-0">
-              {movies.map(
-                (film, i) =>
-                  i <= movies.length / 2 && (
-                    <p className="text-center" key={film.id}>
+            {[0, 1].map((part) => (
+              <div
+                key={part}
+                className={`w-full md:w-1/2 bg-gray-100 ${
+                  part === 0 ? "mt-2" : "m-0"
+                } p-0`}
+              >
+                {movies
+                  .filter((_, i) =>
+                    part === 0
+                      ? i <= Math.floor(movies.length / 2)
+                      : i > Math.floor(movies.length / 2)
+                  )
+                  .map((film) => (
+                    <p className="text-center text-base" key={film.id}>
                       {film.title}
                     </p>
-                  )
-              )}
-            </div>
-            <div className="w-full md:w-1/2 p-4 bg-gray-100 m-0 p-0">
-              {movies.map(
-                (film, i) =>
-                  i > movies.length / 2 && (
-                    <p className="text-center" key={film.id}>
-                      {film.title}
-                    </p>
-                  )
-              )}
-            </div>
+                  ))}
+              </div>
+            ))}
           </div>
         </>
       )}
