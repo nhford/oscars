@@ -49,11 +49,28 @@ function Gallery({
       )}
       {hidden && (
         <>
-          {movies.map((film) => (
-            <p className="text-center" key={film.id}>
-              {film.title}
-            </p>
-          ))}
+          <div className="flex flex-col md:flex-row m-2">
+            <div className="w-full md:w-1/2 p-4 bg-gray-100 mt-2 p-0">
+              {movies.map(
+                (film, i) =>
+                  i <= movies.length / 2 && (
+                    <p className="text-center" key={film.id}>
+                      {film.title}
+                    </p>
+                  )
+              )}
+            </div>
+            <div className="w-full md:w-1/2 p-4 bg-gray-100 m-0 p-0">
+              {movies.map(
+                (film, i) =>
+                  i > movies.length / 2 && (
+                    <p className="text-center" key={film.id}>
+                      {film.title}
+                    </p>
+                  )
+              )}
+            </div>
+          </div>
         </>
       )}
     </>
