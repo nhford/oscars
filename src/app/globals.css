@@ -28,7 +28,7 @@ body {
   display: grid;
   gap: 16px; /* Space between items */
   padding: 16px;
-  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(max(45px,10%), 1fr));
   /* Dynamically create columns based on available space */
   justify-content: center; /* Center the grid items horizontally */
   margin-left: 10%;

@@ -18,7 +18,7 @@ function Film({ name, title, path, type }: FilmProps) {
   };
 
   return (
-    <div className={`film${isFlipped ? "flipped" : ""}`} onClick={handleClick}>
+    <div className={`mx-0.01`} onClick={handleClick}>
       {/* <div className="filmInner"> */}
       {/* Front */}
       {/* <div className="film-front"> */}
@@ -29,7 +29,6 @@ function Film({ name, title, path, type }: FilmProps) {
         width={200}
         height={200}
       />
-      {`/${path}/${name}.${type}`}
       {/* </div> */}
       {/* Back */}
       {/* <div className="film-back"></div> */}

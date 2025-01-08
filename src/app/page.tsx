@@ -22,9 +22,16 @@ export default function Home() {
     <>
       <main>
         <Title />
-        <Heading2 text="How it Works" />
-        <Heading2 text="Movies Watched This Year" />
-        <Gallery movies={movies} path={"film"} />
+        <div className="flex flex-col md:flex-row">
+          <div className="w-full md:w-1/2 p-4 bg-gray-100">
+            <Heading2 text="How it Works" />
+            <Heading2 text="Movies Watched This Year" />
+            <Gallery movies={movies} path={"film"} />
+          </div>
+          <div className="w-full md:w-1/2 p-4 bg-gray-100">
+            <Heading2 text="2024 Awards" />
+          </div>
+        </div>
         <Heading2 text="The Categories" />
         {/* reveal winner -> have button to show winners or just show nominees */}
         <Heading2 text="The Nominees" />
