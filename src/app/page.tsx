@@ -66,36 +66,11 @@ export default function Home() {
           <div className="w-full md:w-1/2 md:mx-5 mx-0 bg-gray-100">
             <Heading2 text="2024 Awards" />
             <div className="right_container">
-              <Slideshow />
+              <Slideshow movies={movies} />
               <div className="">{/* Controls */}</div>
             </div>
           </div>
         </div>
-        <Heading2 text="The Categories" />
-        {/* reveal winner -> have button to show winners or just show nominees */}
-        <Heading2 text="The Nominees" />
-        <Heading2 text="H3: Best Supporting Actor" />
-        <Gallery
-          movies={movies.filter((film) => film.supporting != null)}
-          path="supp"
-        />
-        <Heading2 text="H3: Best Actor" />
-        <Gallery
-          movies={movies.filter((film) => film.actor != null)}
-          path="actor"
-        />
-        {/* <Heading2 text="H3: Best Scene" />
-        <Gallery movies={movies.filter((film) => film.scene != null)} /> */}
-        <Heading2 text="H3: Best Ending" />
-        <Gallery
-          movies={movies.filter((film) => film.ending != null)}
-          path="film"
-        />
-        <Heading2 text="H3: Best Movie" />
-        <Gallery
-          movies={movies.filter((film) => film.movie != null)}
-          path="film"
-        />
       </main>
     </>
   );

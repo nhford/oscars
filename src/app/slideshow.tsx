@@ -1,51 +1,69 @@
 "use client";
 
 import React, { useState } from "react";
+import { Movie, createNomineeObject } from "./util";
+import Nominees from "./noms";
 
-export default function Slideshow() {
+export default function Slideshow({ movies }: { movies: Movie[] }) {
   const [currentSlide, setCurrentSlide] = useState(0);
-
-  // Example data for the gallery slides
-  const slides = [
-    { type: "gallery", images: ["/img1.jpg", "/img2.jpg"], text: "Gallery 1" },
-    { type: "gallery", images: ["/img3.jpg", "/img4.jpg"], text: "Gallery 2" },
-  ];
 
   // Function to handle slide navigation
   const handleNext = () =>
     setCurrentSlide((prev) => Math.min(prev + 1, slides.length));
   const handlePrev = () => setCurrentSlide((prev) => Math.max(prev - 1, 0));
 
+  //   TODO: only works if each film has one nom for each category
+  const actorNominees = createNomineeObject(
+    "Best Actor Nominees",
+    movies,
+    "actorId",
+    "/actor",
+    "png",
+    (film) => `${film.actorName} - ${film.title} (${film.release})`
+  );
+
+  const suppNominees = createNomineeObject(
+    "Best Supporting Actor Nominees",
+    movies,
+    "suppId",
+    "/supp",
+    "png",
+    (film) => `${film.suppName} - ${film.title} (${film.release})`
+  );
+
+  const endingNominees = createNomineeObject(
+    "Best Ending Nominees",
+    movies,
+    "ending",
+    "/film",
+    "jpg",
+    (film) => `${film.title} (${film.release})`
+  );
+
+  const movieNominees = createNomineeObject(
+    "Best Movie Nominees",
+    movies,
+    "movie",
+    "/film",
+    "jpg",
+    (film) => `${film.title} (${film.release})`
+  );
+
+  // Example data for the gallery slides
+  const slides = [actorNominees, suppNominees, endingNominees, movieNominees];
+  const CurrentComponent = slides[currentSlide].type;
+
   return (
     <div className="slideshow-container content-center w-[100%]">
-      {/* First Slide: Black square with play button */}
-      {currentSlide === 0 && (
-        <div className="slide black-square flex self-center text-center items-center justify-center py-[max(20%,135px)] h-[100%] w-[100%] bg-black text-white">
-          <button
-            className="play-button bg-white text-black px-4 py-2 rounded"
-            onClick={handleNext}
-          >
-            Play
-          </button>
-        </div>
-      )}
-
+      {/* Instructions */}
+      <div className="w-full flex items-center justify-center">
+        <i className="text-center pb-2 sm:my-1">
+          Click on the right side of the slides to advance, and the left side to
+          go back.
+        </i>
+      </div>
       {/* Gallery Slides */}
-      {currentSlide > 0 && slides[currentSlide - 1]?.type === "gallery" && (
-        <div className="slide gallery-slide">
-          <div className="images flex justify-center gap-4">
-            {slides[currentSlide - 1].images.map((src, idx) => (
-              <img
-                key={idx}
-                src={src}
-                alt={`Gallery ${currentSlide} Image`}
-                className="w-32 h-32 object-cover"
-              />
-            ))}
-          </div>
-          <p className="text-center mt-4">{slides[currentSlide - 1].text}</p>
-        </div>
-      )}
+      <CurrentComponent key={currentSlide} {...slides[currentSlide].props} />
 
       {/* Navigation Buttons */}
       <div className="navigation-buttons flex justify-between mt-4">
@@ -59,7 +77,7 @@ export default function Slideshow() {
         <button
           className="next-button bg-gray-300 px-4 py-2 rounded disabled:opacity-50"
           onClick={handleNext}
-          disabled={currentSlide === slides.length}
+          disabled={currentSlide === slides.length - 1}
         >
           Next
         </button>
