@@ -1,8 +1,13 @@
 "use client";
 
 import React, { useState } from "react";
-import { Movie, createNomineeObject } from "./util";
-import Nominees from "./noms";
+import {
+  Movie,
+  Nominee,
+  Winner,
+  createNomineeObject,
+  createWinnerObject,
+} from "./util";
 
 export default function Slideshow({ movies }: { movies: Movie[] }) {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -13,44 +18,90 @@ export default function Slideshow({ movies }: { movies: Movie[] }) {
   const handlePrev = () => setCurrentSlide((prev) => Math.max(prev - 1, 0));
 
   //   TODO: only works if each film has one nom for each category
-  const actorNominees = createNomineeObject(
-    "Best Actor Nominees",
-    movies,
-    "actorId",
-    "/actor",
-    "png",
-    (film) => `${film.actorName} - ${film.title} (${film.release})`
-  );
+  const suppNominees = createNomineeObject({
+    category: "Best Supporting Actor Nominees",
+    movies: movies,
+    filterKey: "suppId",
+    imagePath: "/supp",
+    getDescription: (film) =>
+      `${film.suppName} - ${film.title} (${film.release})`,
+  });
 
-  const suppNominees = createNomineeObject(
-    "Best Supporting Actor Nominees",
-    movies,
-    "suppId",
-    "/supp",
-    "png",
-    (film) => `${film.suppName} - ${film.title} (${film.release})`
-  );
+  const suppWinner = createWinnerObject({
+    category: "Best Supporting Actor Winner",
+    movies: movies,
+    filterKey: "supporting",
+    displayKey: "suppId",
+    imagePath: "/supp",
+    getDescription: (film) =>
+      `${film.suppName} - ${film.title} (${film.release})`,
+  });
 
-  const endingNominees = createNomineeObject(
-    "Best Ending Nominees",
-    movies,
-    "ending",
-    "/film",
-    "jpg",
-    (film) => `${film.title} (${film.release})`
-  );
+  const actorNominees = createNomineeObject({
+    category: "Best Actor Nominees",
+    movies: movies,
+    filterKey: "actorId",
+    imagePath: "/actor",
+    getDescription: (film) =>
+      `${film.actorName} - ${film.title} (${film.release})`,
+  });
 
-  const movieNominees = createNomineeObject(
-    "Best Movie Nominees",
-    movies,
-    "movie",
-    "/film",
-    "jpg",
-    (film) => `${film.title} (${film.release})`
-  );
+  const actorWinner = createWinnerObject({
+    category: "Best Actor Winner",
+    movies: movies,
+    filterKey: "actor",
+    displayKey: "actorId",
+    imagePath: "/actor",
+    getDescription: (film) =>
+      `${film.actorName} - ${film.title} (${film.release})`,
+  });
+
+  const endingNominees = createNomineeObject({
+    category: "Best Ending Nominees",
+    movies: movies,
+    filterKey: "ending",
+    imagePath: "/film",
+    getDescription: (film) => `${film.title} (${film.release})`,
+  });
+
+  const endingWinner = createWinnerObject({
+    category: "Best Ending Winner",
+    movies: movies,
+    filterKey: "ending",
+    displayKey: "id",
+    imagePath: "/film",
+    getDescription: (film) => `${film.title} (${film.release})`,
+  });
+
+  const movieNominees = createNomineeObject({
+    category: "Best Movie Nominees",
+    movies: movies,
+    filterKey: "movie",
+    imagePath: "/film",
+    getDescription: (film) => `${film.title} (${film.release})`,
+  });
+
+  const movieWinner = createWinnerObject({
+    category: "Best Movie Winner",
+    movies: movies,
+    filterKey: "movie",
+    displayKey: "id",
+    imagePath: "/film",
+    getDescription: (film) => `${film.title} (${film.release})`,
+  });
 
   // Example data for the gallery slides
-  const slides = [actorNominees, suppNominees, endingNominees, movieNominees];
+  const slides = [
+    suppNominees,
+    suppWinner,
+    actorNominees,
+    actorWinner,
+    endingNominees,
+    endingWinner,
+    movieNominees,
+    movieWinner,
+  ];
+
   const CurrentComponent = slides[currentSlide].type;
 
   return (
@@ -62,8 +113,6 @@ export default function Slideshow({ movies }: { movies: Movie[] }) {
           go back.
         </i>
       </div>
-      {/* Gallery Slides */}
-      <CurrentComponent key={currentSlide} {...slides[currentSlide].props} />
 
       {/* Navigation Buttons */}
       <div className="navigation-buttons flex justify-between mt-4">
@@ -82,6 +131,9 @@ export default function Slideshow({ movies }: { movies: Movie[] }) {
           Next
         </button>
       </div>
+
+      {/* Gallery Slides */}
+      <CurrentComponent key={currentSlide} {...slides[currentSlide].props} />
     </div>
   );
 }
