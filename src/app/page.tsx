@@ -1,8 +1,9 @@
-// import Image from "next/image";
+"use client"; // import Image from "next/image";
 // import Film from "./film";
+import data from "./assets/movies.json";
 import Gallery from "./gallery";
 import Title from "./title";
-import data from "./assets/movies.json";
+import Slideshow from "./slideshow";
 import { Movie, normalizeTitle } from "./util";
 
 const movies: Movie[] = data.sort((a, b) =>
@@ -31,10 +32,10 @@ export default function Home() {
       <main>
         <Title />
         <div className="flex flex-col md:flex-row">
-          <div className="w-full md:w-1/2 p-[20px] bg-gray-100">
+          <div className="w-full md:w-1/2 md:mx-5 mx-0 bg-gray-100">
             <Heading2 text="How it Works" />
             <div className="left_container">
-              <p className="text-base text-justify text-gray-800 md:text-lg lg:text-xl p-1">
+              <p className="text-base text-justify text-gray-800 md:text-lg lg:text-xl mx-2 p-2">
                 Instead of giving awards to the best of cinema <i>released</i>{" "}
                 in 2024, the Noah Oscars considers those films I <i>watched</i>{" "}
                 in 2024, regardless of their theatrical release year. While the
@@ -62,8 +63,12 @@ export default function Home() {
               <Gallery movies={movies} path={"film"} />
             </div>
           </div>
-          <div className="w-full md:w-1/2 p-4 bg-gray-100">
+          <div className="w-full md:w-1/2 md:mx-5 mx-0 bg-gray-100">
             <Heading2 text="2024 Awards" />
+            <div className="right_container">
+              <Slideshow />
+              <div className="">{/* Controls */}</div>
+            </div>
           </div>
         </div>
         <Heading2 text="The Categories" />
