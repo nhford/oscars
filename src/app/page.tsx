@@ -63,8 +63,8 @@ export default function Home() {
               <Gallery movies={movies} />
             </div>
           </div>
-          <div className="w-full md:w-1/2 md:mx-5 mx-0 bg-white md:rounded-lg flex my-4 md:my-0 md:justify-center md:items-center">
-            <div className="place-self-center bg-blue-100 md:rounded-lg w-full h-[600px] md:h-[1200px]">
+          <div className="w-full md:w-1/2 md:mx-5 mx-0 md:rounded-lg flex my-4 md:my-0 md:justify-center md:items-center">
+            <div className="place-self-center bg-gray-100 md:rounded-lg w-full h-[600px] md:h-[1200px]">
               <h2 className="text-3xl font-bold text-center text-gray-800 md:text-4xl lg:text-5xl my-2 p-1 md:py-6">
                 2024 Awards
               </h2>

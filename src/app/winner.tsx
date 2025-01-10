@@ -14,8 +14,8 @@ export default function Winner({
   second: [string, string];
 }) {
   return (
-    <div className="h-full bg-purple-200 justify-center items-center">
-      <div className="h-full flex flex-col md:flex-row items-center justify-center md:justify-between px-6 md:py-8 bg-green-100 rounded-lg ">
+    <div className="h-full justify-center items-center">
+      <div className="h-full flex flex-col md:flex-row items-center justify-center md:justify-between px-6 md:py-8 rounded-lg ">
         {/* Left Section */}
         <div className="text-center md:text-left md:w-1/2 md:mx-4">
           <h3 className="text-2xl font-bold text-gray-800 md:ml-3 md:text-3xl lg:text-4xl pt-2 sm:pt-8 sm:pb-4">
