@@ -64,6 +64,14 @@ export default function Slideshow({ movies }: { movies: Movie[] }) {
     ],
   });
 
+  const sceneNominees = createNomineeObject({
+    category: "Best Scene Nominees",
+    movies: movies,
+    filterKey: "scene",
+    imagePath: "/scene",
+    getDescription: (film) => [`${film.title}`, `(${film.release})`],
+  });
+
   const endingNominees = createNomineeObject({
     category: "Best Ending Nominees",
     movies: movies,
@@ -104,6 +112,7 @@ export default function Slideshow({ movies }: { movies: Movie[] }) {
     suppWinner,
     actorNominees,
     actorWinner,
+    sceneNominees,
     endingNominees,
     endingWinner,
     movieNominees,

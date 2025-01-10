@@ -28,7 +28,7 @@ export interface Nominee {
     category: string,
     movies: Movie[],
     filterKey: "actorId" | "suppId" | "ending" | "movie" | "scene",
-    imagePath: "/actor" | "/film" | "/supp",
+    imagePath: "/actor" | "/film" | "/supp" | "/scene",
     getDescription: (film: Movie) => [string,string]
 }
 
@@ -57,7 +57,7 @@ export interface Winner {
     movies: Movie[],
     filterKey: "actor" | "supporting" | "ending" | "movie" | "scene",
     displayKey: "actorId" | "suppId" | "id",
-    imagePath: "/actor" | "/film" | "/supp",
+    imagePath: "/actor" | "/film" | "/supp" | "/scene",
     getDescription: (film: Movie) => [string,string]
 }
 
