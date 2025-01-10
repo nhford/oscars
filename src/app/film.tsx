@@ -23,7 +23,7 @@ function Film({ name, title, path, type }: FilmProps) {
       {/* Front */}
       {/* <div className="film-front"> */}
       <Image
-        className={path}
+        className="rounded-lg"
         src={`/${path}/${name}.${type}`}
         alt={title}
         width={200}
