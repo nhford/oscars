@@ -18,7 +18,7 @@ function Gallery({ movies }: { movies: Movie[] }) {
         <ControlledSwitch checked={hidden} setChecked={setHidden} />
       </div>
       {!hidden && (
-        <div className="grid gap-3 p-4 grid-cols-[repeat(auto-fit,_minmax(max(45px,_10%),_1fr))] justify-center">
+        <div className="grid gap-3 p-4 grid-cols-[repeat(auto-fit,_minmax(max(45px,_10%),_1fr))] justify-center md:gap-2 xl:gap-1 xl:p-2">
           {movies.map((film) => (
             <Film
               key={film.id}

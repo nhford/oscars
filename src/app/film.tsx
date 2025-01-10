@@ -18,7 +18,7 @@ function Film({ name, title, path, type }: FilmProps) {
   };
 
   return (
-    <div className={`mx-0.01`} onClick={handleClick}>
+    <div className={`m-0.5`} onClick={handleClick}>
       {/* <div className="filmInner"> */}
       {/* Front */}
       {/* <div className="film-front"> */}

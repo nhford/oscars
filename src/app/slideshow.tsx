@@ -1,13 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import {
-  Movie,
-  Nominee,
-  Winner,
-  createNomineeObject,
-  createWinnerObject,
-} from "./util";
+import { Movie, createNomineeObject, createWinnerObject } from "./util";
 
 export default function Slideshow({ movies }: { movies: Movie[] }) {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -26,19 +20,19 @@ export default function Slideshow({ movies }: { movies: Movie[] }) {
     imagePath: "/supp",
     getDescription: (film) => [
       `${film.suppName}`,
-      `- ${film.title} (${film.release})`,
+      `${film.title} (${film.release})`,
     ],
   });
 
   const suppWinner = createWinnerObject({
-    category: "Best Supporting Actor Winner",
+    category: "Best Supporting Actor",
     movies: movies,
     filterKey: "supporting",
     displayKey: "suppId",
     imagePath: "/supp",
     getDescription: (film) => [
       `${film.suppName}`,
-      `- ${film.title} (${film.release})`,
+      `${film.title} (${film.release})`,
     ],
   });
 
@@ -50,19 +44,19 @@ export default function Slideshow({ movies }: { movies: Movie[] }) {
     imagePath: "/actor",
     getDescription: (film) => [
       `${film.actorName}`,
-      `- ${film.title} (${film.release})`,
+      `${film.title} (${film.release})`,
     ],
   });
 
   const actorWinner = createWinnerObject({
-    category: "Best Actor Winner",
+    category: "Best Actor",
     movies: movies,
     filterKey: "actor",
     displayKey: "actorId",
     imagePath: "/actor",
     getDescription: (film) => [
       `${film.actorName}`,
-      `- ${film.title} (${film.release})`,
+      `${film.title} (${film.release})`,
     ],
   });
 
@@ -74,13 +68,14 @@ export default function Slideshow({ movies }: { movies: Movie[] }) {
     imagePath: "/scene",
     getDescription: (film) => [`${film.title}`, `(${film.sceneTitle})`],
   });
+  console.log(sceneNominees.props.dimensions);
 
   const sceneWinner = createWinnerObject({
-    category: "Best Scene Winner",
+    category: "Best Scene",
     movies: movies,
     filterKey: "scene",
     displayKey: "id",
-    imagePath: "/scene",
+    imagePath: "/film",
     getDescription: (film) => [`${film.title}`, `(${film.sceneTitle})`],
   });
 
@@ -94,7 +89,7 @@ export default function Slideshow({ movies }: { movies: Movie[] }) {
   });
 
   const endingWinner = createWinnerObject({
-    category: "Best Ending Winner",
+    category: "Best Ending",
     movies: movies,
     filterKey: "ending",
     displayKey: "id",
@@ -112,7 +107,7 @@ export default function Slideshow({ movies }: { movies: Movie[] }) {
   });
 
   const movieWinner = createWinnerObject({
-    category: "Best Movie Winner",
+    category: "Best Movie",
     movies: movies,
     filterKey: "movie",
     displayKey: "id",
@@ -165,7 +160,9 @@ export default function Slideshow({ movies }: { movies: Movie[] }) {
       </div>
 
       {/* Gallery Slides */}
-      <CurrentComponent key={currentSlide} {...slides[currentSlide].props} />
+      <div className="w-full h-[500px] md:w-[90%] md:mx-[5%] md:h-[900px] bg-red-200 my-4 rounded-lg">
+        <CurrentComponent key={currentSlide} {...slides[currentSlide].props} />
+      </div>
     </div>
   );
 }
