@@ -32,7 +32,7 @@ export default function Home() {
       <main>
         <Title />
         <div className="flex flex-col md:flex-row">
-          <div className="w-full md:w-1/2 md:mx-5 mx-0 bg-gray-100">
+          <div className="w-full md:w-1/2 md:mx-5 mx-0 bg-gray-100 md:rounded-lg">
             <Heading2 text="How it Works" />
             <div className="left_container">
               <p className="text-base text-justify text-gray-800 md:text-lg lg:text-xl mx-2 p-2">
@@ -63,8 +63,10 @@ export default function Home() {
               <Gallery movies={movies} path={"film"} />
             </div>
           </div>
-          <div className="w-full md:w-1/2 md:mx-5 mx-0 bg-gray-100">
-            <Heading2 text="2024 Awards" />
+          <div className="w-full md:w-1/2 md:mx-5 mx-0 bg-gray-100 my-8 lg:my-36 md:rounded-lg">
+            <h2 className="text-3xl font-bold text-center text-gray-800 md:text-4xl lg:text-5xl my-2 p-1 md:py-6">
+              2024 Awards
+            </h2>
             <div className="right_container">
               <Slideshow movies={movies} />
               <div className="">{/* Controls */}</div>

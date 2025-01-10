@@ -23,8 +23,10 @@ export default function Slideshow({ movies }: { movies: Movie[] }) {
     movies: movies,
     filterKey: "suppId",
     imagePath: "/supp",
-    getDescription: (film) =>
-      `${film.suppName} - ${film.title} (${film.release})`,
+    getDescription: (film) => [
+      `${film.suppName}`,
+      `- ${film.title} (${film.release})`,
+    ],
   });
 
   const suppWinner = createWinnerObject({
@@ -33,8 +35,10 @@ export default function Slideshow({ movies }: { movies: Movie[] }) {
     filterKey: "supporting",
     displayKey: "suppId",
     imagePath: "/supp",
-    getDescription: (film) =>
-      `${film.suppName} - ${film.title} (${film.release})`,
+    getDescription: (film) => [
+      `${film.suppName}`,
+      `- ${film.title} (${film.release})`,
+    ],
   });
 
   const actorNominees = createNomineeObject({
@@ -42,8 +46,10 @@ export default function Slideshow({ movies }: { movies: Movie[] }) {
     movies: movies,
     filterKey: "actorId",
     imagePath: "/actor",
-    getDescription: (film) =>
-      `${film.actorName} - ${film.title} (${film.release})`,
+    getDescription: (film) => [
+      `${film.actorName}`,
+      `- ${film.title} (${film.release})`,
+    ],
   });
 
   const actorWinner = createWinnerObject({
@@ -52,8 +58,10 @@ export default function Slideshow({ movies }: { movies: Movie[] }) {
     filterKey: "actor",
     displayKey: "actorId",
     imagePath: "/actor",
-    getDescription: (film) =>
-      `${film.actorName} - ${film.title} (${film.release})`,
+    getDescription: (film) => [
+      `${film.actorName}`,
+      `- ${film.title} (${film.release})`,
+    ],
   });
 
   const endingNominees = createNomineeObject({
@@ -61,7 +69,7 @@ export default function Slideshow({ movies }: { movies: Movie[] }) {
     movies: movies,
     filterKey: "ending",
     imagePath: "/film",
-    getDescription: (film) => `${film.title} (${film.release})`,
+    getDescription: (film) => [`${film.title}`, `(${film.release})`],
   });
 
   const endingWinner = createWinnerObject({
@@ -70,7 +78,7 @@ export default function Slideshow({ movies }: { movies: Movie[] }) {
     filterKey: "ending",
     displayKey: "id",
     imagePath: "/film",
-    getDescription: (film) => `${film.title} (${film.release})`,
+    getDescription: (film) => [`${film.title}`, `(${film.release})`],
   });
 
   const movieNominees = createNomineeObject({
@@ -78,7 +86,7 @@ export default function Slideshow({ movies }: { movies: Movie[] }) {
     movies: movies,
     filterKey: "movie",
     imagePath: "/film",
-    getDescription: (film) => `${film.title} (${film.release})`,
+    getDescription: (film) => [`${film.title}`, `(${film.release})`],
   });
 
   const movieWinner = createWinnerObject({
@@ -87,7 +95,7 @@ export default function Slideshow({ movies }: { movies: Movie[] }) {
     filterKey: "movie",
     displayKey: "id",
     imagePath: "/film",
-    getDescription: (film) => `${film.title} (${film.release})`,
+    getDescription: (film) => [`${film.title}`, `(${film.release})`],
   });
 
   // Example data for the gallery slides
@@ -108,27 +116,27 @@ export default function Slideshow({ movies }: { movies: Movie[] }) {
     <div className="slideshow-container content-center w-[100%]">
       {/* Instructions */}
       <div className="w-full flex items-center justify-center">
-        <i className="text-center pb-2 sm:my-1">
+        <i className="text-center sm:my-1">
           Click on the right side of the slides to advance, and the left side to
           go back.
         </i>
       </div>
 
       {/* Navigation Buttons */}
-      <div className="navigation-buttons flex justify-between mt-4">
+      <div className="navigation-buttons flex items-center justify-center py-2">
         <button
           className="prev-button bg-gray-300 px-4 py-2 rounded disabled:opacity-50"
           onClick={handlePrev}
           disabled={currentSlide === 0}
         >
-          Previous
+          {"Previous"}
         </button>
         <button
           className="next-button bg-gray-300 px-4 py-2 rounded disabled:opacity-50"
           onClick={handleNext}
           disabled={currentSlide === slides.length - 1}
         >
-          Next
+          {"Next"}
         </button>
       </div>
 

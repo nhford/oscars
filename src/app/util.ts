@@ -29,7 +29,7 @@ export interface Nominee {
     movies: Movie[],
     filterKey: "actorId" | "suppId" | "ending" | "movie" | "scene",
     imagePath: "/actor" | "/film" | "/supp",
-    getDescription: (film: Movie) => string
+    getDescription: (film: Movie) => [string,string]
 }
 
 // TODO: breaks if two noms for 
@@ -58,7 +58,7 @@ export interface Winner {
     filterKey: "actor" | "supporting" | "ending" | "movie" | "scene",
     displayKey: "actorId" | "suppId" | "id",
     imagePath: "/actor" | "/film" | "/supp",
-    getDescription: (film: Movie) => string
+    getDescription: (film: Movie) => [string,string]
 }
 
 export function createWinnerObject(input: Winner){
