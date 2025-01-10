@@ -27,8 +27,9 @@ export function normalizeTitle(title: string): string {
 export interface Nominee {
     category: string,
     movies: Movie[],
-    filterKey: "actorId" | "suppId" | "ending" | "movie" | "scene",
-    imagePath: "/actor" | "/film" | "/supp",
+    filterKey: "actor" | "supporting" | "ending" | "movie" | "scene",
+    displayKey: "actorId" | "suppId" | "id",
+    imagePath: "/actor" | "/film" | "/supp" | "/scene",
     getDescription: (film: Movie) => [string,string]
 }
 
@@ -41,8 +42,8 @@ export function createNomineeObject(input: Nominee){
         category: input.category,
         images: input.movies
             .filter((film) => film[input.filterKey] != null)
-            .map((film) => {return ((input.filterKey == 'actorId') || (input.filterKey == 'suppId')) ?
-                    `${input.imagePath}/${film[input.filterKey]?.toLowerCase()}_${film.id.toLowerCase()}.${imageType}` :
+            .map((film) => {return ((input.displayKey == 'actorId') || (input.displayKey == 'suppId')) ?
+                    `${input.imagePath}/${film[input.displayKey]?.toLowerCase()}_${film.id.toLowerCase()}.${imageType}` :
                     `${input.imagePath}/${film.id.toLowerCase()}.${imageType}`
                     }),
         descriptions: input.movies
@@ -57,7 +58,7 @@ export interface Winner {
     movies: Movie[],
     filterKey: "actor" | "supporting" | "ending" | "movie" | "scene",
     displayKey: "actorId" | "suppId" | "id",
-    imagePath: "/actor" | "/film" | "/supp",
+    imagePath: "/actor" | "/film" | "/supp" | "/scene",
     getDescription: (film: Movie) => [string,string]
 }
 

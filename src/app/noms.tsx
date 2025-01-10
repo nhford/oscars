@@ -20,7 +20,7 @@ export default function Nominees({
         {images.map((img, i) => (
           <div className="place-items-center" key={i}>
             <Image
-              className="w-full md:w-4/6 h-auto rounded-lg"
+              className="w-full md:w-5/6 h-auto rounded-lg"
               src={img}
               alt={descriptions[i][0]}
               width={200}

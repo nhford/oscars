@@ -21,7 +21,8 @@ export default function Slideshow({ movies }: { movies: Movie[] }) {
   const suppNominees = createNomineeObject({
     category: "Best Supporting Actor Nominees",
     movies: movies,
-    filterKey: "suppId",
+    filterKey: "supporting",
+    displayKey: "suppId",
     imagePath: "/supp",
     getDescription: (film) => [
       `${film.suppName}`,
@@ -44,7 +45,8 @@ export default function Slideshow({ movies }: { movies: Movie[] }) {
   const actorNominees = createNomineeObject({
     category: "Best Actor Nominees",
     movies: movies,
-    filterKey: "actorId",
+    filterKey: "actor",
+    displayKey: "actorId",
     imagePath: "/actor",
     getDescription: (film) => [
       `${film.actorName}`,
@@ -64,10 +66,29 @@ export default function Slideshow({ movies }: { movies: Movie[] }) {
     ],
   });
 
+  const sceneNominees = createNomineeObject({
+    category: "Best Scene Nominees",
+    movies: movies,
+    filterKey: "scene",
+    displayKey: "id",
+    imagePath: "/scene",
+    getDescription: (film) => [`${film.title}`, `(${film.sceneTitle})`],
+  });
+
+  const sceneWinner = createWinnerObject({
+    category: "Best Scene Winner",
+    movies: movies,
+    filterKey: "scene",
+    displayKey: "id",
+    imagePath: "/scene",
+    getDescription: (film) => [`${film.title}`, `(${film.sceneTitle})`],
+  });
+
   const endingNominees = createNomineeObject({
     category: "Best Ending Nominees",
     movies: movies,
     filterKey: "ending",
+    displayKey: "id",
     imagePath: "/film",
     getDescription: (film) => [`${film.title}`, `(${film.release})`],
   });
@@ -85,6 +106,7 @@ export default function Slideshow({ movies }: { movies: Movie[] }) {
     category: "Best Movie Nominees",
     movies: movies,
     filterKey: "movie",
+    displayKey: "id",
     imagePath: "/film",
     getDescription: (film) => [`${film.title}`, `(${film.release})`],
   });
@@ -104,6 +126,8 @@ export default function Slideshow({ movies }: { movies: Movie[] }) {
     suppWinner,
     actorNominees,
     actorWinner,
+    sceneNominees,
+    sceneWinner,
     endingNominees,
     endingWinner,
     movieNominees,
