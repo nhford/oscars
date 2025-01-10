@@ -210,8 +210,8 @@
         "supporting":null,
         "suppName":null,
         "suppId":null,
-        "scene":"Nominee",
-        "sceneTitle":"Big Daddy's Plantation",
+        "scene":null,
+        "sceneTitle":null,
         "ending":"Nominee",
         "movie":null
     },
@@ -279,7 +279,7 @@
         "actor":null,
         "actorName":null,
         "actorId":null,
-        "supporting":"Nominee",
+        "supporting":"Winner",
         "suppName":"Stephanie Hsu",
         "suppId":"SHS",
         "scene":null,
@@ -465,7 +465,7 @@
         "scene":null,
         "sceneTitle":null,
         "ending":null,
-        "movie":"Nominee"
+        "movie":"Second"
     },
     {
         "id":"KSI",
@@ -570,7 +570,7 @@
         "supporting":null,
         "suppName":null,
         "suppId":null,
-        "scene":"Nominee",
+        "scene":"Second",
         "sceneTitle":"Rescuing the Pathfinder",
         "ending":null,
         "movie":"Winner"
@@ -697,7 +697,7 @@
         "suppName":null,
         "suppId":null,
         "scene":"Nominee",
-        "sceneTitle":"The Final Boss",
+        "sceneTitle":"Atlantic City with Johnny Chan",
         "ending":"Nominee",
         "movie":"Nominee"
     },
@@ -711,7 +711,7 @@
         "actor":null,
         "actorName":null,
         "actorId":null,
-        "supporting":"Nominee",
+        "supporting":"Second",
         "suppName":"Ralph Fiennes",
         "suppId":"RFI",
         "scene":null,
@@ -734,7 +734,7 @@
         "suppId":"KSP",
         "scene":null,
         "sceneTitle":null,
-        "ending":"Nominee",
+        "ending":"Second",
         "movie":null
     },
     {
@@ -780,7 +780,7 @@
         "release":2014,
         "rating":8,
         "grade":"A-",
-        "actor":"Nominee",
+        "actor":"Second",
         "actorName":"Taika Waititi",
         "actorId":"TWA",
         "supporting":"Nominee",
@@ -804,8 +804,8 @@
         "supporting":"Nominee",
         "suppName":"John Carroll Lynch",
         "suppId":"JCA",
-        "scene":null,
-        "sceneTitle":null,
+        "scene":"Nominee",
+        "sceneTitle":"Jake hears footsteps",
         "ending":"Winner",
         "movie":"Nominee"
     }
