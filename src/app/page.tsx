@@ -60,7 +60,7 @@ export default function Home() {
               <h3 className="text-lg font-bold text-center text-gray-800 md:text-1.5xl lg:text-2xl m-1 p-1">
                 Movies I&apos;ve Watched This Year
               </h3>
-              <Gallery movies={movies} path={"film"} />
+              <Gallery movies={movies} />
             </div>
           </div>
           <div className="w-full md:w-1/2 md:mx-5 mx-0 bg-gray-100 my-8 lg:my-36 md:rounded-lg">

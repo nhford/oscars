@@ -6,13 +6,7 @@ import { Movie } from "./util";
 import ControlledSwitch from "./switch";
 import { useState } from "react";
 
-function Gallery({
-  movies,
-  path,
-}: {
-  movies: Movie[];
-  path: "film" | "supp" | "actor";
-}) {
+function Gallery({ movies }: { movies: Movie[] }) {
   const [hidden, setHidden] = useState(false);
 
   return (
@@ -24,26 +18,16 @@ function Gallery({
         <ControlledSwitch checked={hidden} setChecked={setHidden} />
       </div>
       {!hidden && (
-        <div className="gallery">
-          {path == "film"
-            ? movies.map((film) => (
-                <Film
-                  key={film.id}
-                  name={film.id}
-                  title={film.title}
-                  path={path}
-                  type="jpg"
-                />
-              ))
-            : movies.map((film) => (
-                <Film
-                  key={film.id}
-                  name={`${film[`${path}Id`]}_${film.id}`}
-                  title={film.title}
-                  path={path}
-                  type="png"
-                />
-              ))}
+        <div className="grid gap-3 p-4 grid-cols-[repeat(auto-fit,_minmax(max(45px,_10%),_1fr))] justify-center">
+          {movies.map((film) => (
+            <Film
+              key={film.id}
+              name={film.id}
+              title={film.title}
+              path={"film"}
+              type="jpg"
+            />
+          ))}
         </div>
       )}
       {hidden && (
