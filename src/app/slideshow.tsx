@@ -8,7 +8,7 @@ export default function Slideshow({ movies }: { movies: Movie[] }) {
 
   // Function to handle slide navigation
   const handleNext = () =>
-    setCurrentSlide((prev) => Math.min(prev + 1, slides.length));
+    setCurrentSlide((prev) => Math.min(prev + 1, slides.length - 1));
   const handlePrev = () => setCurrentSlide((prev) => Math.max(prev - 1, 0));
 
   //   TODO: only works if each film has one nom for each category
@@ -153,12 +153,30 @@ export default function Slideshow({ movies }: { movies: Movie[] }) {
 
       {/* Instructions */}
       <div className="w-full flex items-center justify-center">
-        <i className="text-center sm:my-1">Click through the slides!</i>
+        <i className="text-center sm:my-1">Click the through the slides!</i>
       </div>
 
       {/* Gallery Slides */}
       <div className="w-full h-[500px] md:w-[90%] md:mx-[5%] md:h-[600px] lg:h-[900px] my-4 rounded-lg bg-white">
-        <CurrentComponent key={currentSlide} {...slides[currentSlide].props} />
+        <div className="relative w-full h-full">
+          {/* Left Click Area */}
+          <div
+            className="absolute top-0 left-0 h-full w-1/2 cursor-pointer"
+            onClick={handlePrev}
+          ></div>
+          {/* Right Click Area */}
+          <div
+            className="absolute top-0 right-0 h-full w-1/2 cursor-pointer"
+            onClick={handleNext}
+          ></div>
+          {/* Slides */}
+          <div className="w-full h-full">
+            <CurrentComponent
+              key={currentSlide}
+              {...slides[currentSlide].props}
+            />
+          </div>
+        </div>
       </div>
     </div>
   );
