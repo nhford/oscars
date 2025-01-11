@@ -50,14 +50,14 @@ function Gallery({ movies }: { movies: Movie[] }) {
   };
 
   return (
-    <div className="bg-blue-200">
+    <div>
       <h3 className="text-base text-center text-gray-800 md:text-lg lg:text-xl">
         Here are the {movies.length} eligible films for consideration
       </h3>
       <div className="text-center">
         <ControlledSwitch checked={hidden} setChecked={setHidden} />
       </div>
-      <div className="h-[512px] md:h-[600px] xl:h-[900px] overflow-y-scroll bg-green-200">
+      <div className="h-[512px] md:h-[600px] xl:h-[900px] overflow-y-scroll">
         {!hidden && (
           <div className="grid gap-1.5 p-4 grid-cols-[repeat(auto-fit,_minmax(max(60px,_10%),_1fr))] justify-center md:gap-3 xl:p-2">
             {movies.map((film, index) => (
