@@ -12,6 +12,7 @@ function Gallery({ movies }: { movies: Movie[] }) {
   const [data, setData] = useState(movies);
   const [hidden, setHidden] = useState(false);
   const [sorted, setSorted] = useState({ key: "title", dir: "desc" });
+  const [flipped, setFlipped] = useState(Array(movies.length).fill(false));
 
   const sortIcon = (key: sortkey) => {
     return sorted.key === key ? (
@@ -41,6 +42,13 @@ function Gallery({ movies }: { movies: Movie[] }) {
     } else setData([...data].sort((a, b) => (a[key] < b[key] ? d : -d)));
   };
 
+  const handleFlip = (index: number) => {
+    setFlipped(flipped.map((tile, i) => (i == index ? true : tile)));
+    setTimeout(() => {
+      setFlipped(flipped.map((tile, i) => (i == index ? false : tile)));
+    }, 1500);
+  };
+
   return (
     <div className="bg-blue-200">
       <h3 className="text-base text-center text-gray-800 md:text-lg lg:text-xl">
@@ -51,15 +59,43 @@ function Gallery({ movies }: { movies: Movie[] }) {
       </div>
       <div className="h-[512px] md:h-[600px] xl:h-[900px] overflow-y-scroll bg-green-200">
         {!hidden && (
-          <div className="grid gap-3 p-4 grid-cols-[repeat(auto-fit,_minmax(max(45px,_10%),_1fr))] justify-center md:gap-3 xl:p-2">
-            {movies.map((film) => (
-              <Film
+          <div className="grid gap-1.5 p-4 grid-cols-[repeat(auto-fit,_minmax(max(60px,_10%),_1fr))] justify-center md:gap-3 xl:p-2">
+            {movies.map((film, index) => (
+              <div
                 key={film.id}
-                name={film.id}
-                title={film.title}
-                path={"film"}
-                type="jpg"
-              />
+                className={`relative transform-style-preserve-3d transition-transform duration-500 ${
+                  flipped[index] ? "rotate-y-180" : ""
+                }`}
+                onClick={() => handleFlip(index)}
+              >
+                {/* Front Side */}
+                <div
+                  className={`backface-hidden ${
+                    flipped[index] ? "hidden" : ""
+                  }`}
+                >
+                  <Film
+                    key={film.id}
+                    name={film.id}
+                    title={film.title}
+                    path={"film"}
+                    type="jpg"
+                  />
+                </div>
+                {/* Back Side */}
+                <div
+                  className={`flex items-center justify-center h-full w-full backface-hidden rotate-y-180 ${
+                    flipped[index] ? "" : "hidden"
+                  }`}
+                >
+                  <div className="text-center">
+                    <p className="text-xs md:text-sm lg:text-base ">
+                      {"Noah's Grade:"}
+                    </p>
+                    <span className="text-lg lg:text-xl">{film.grade}</span>
+                  </div>
+                </div>
+              </div>
             ))}
           </div>
         )}
