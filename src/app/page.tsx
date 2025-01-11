@@ -12,7 +12,7 @@ const movies: Movie[] = data.sort((a, b) =>
 
 function Heading2({ text }: { text: string }) {
   return (
-    <h2 className="text-3xl font-bold text-center text-gray-800 md:text-4xl lg:text-5xl my-2 p-1">
+    <h2 className="text-3xl font-bold text-center text-gray-800 md:text-4xl lg:text-5xl my-2 lg:my-4 p-1">
       {text}
     </h2>
   );
