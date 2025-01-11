@@ -39,16 +39,17 @@ export function createNomineeObject(input: Nominee){
     return {
         type: Nominees,
         props: {
-        category: input.category,
-        images: input.movies
-            .filter((film) => film[input.filterKey] != null)
-            .map((film) => {return ((input.displayKey == 'actorId') || (input.displayKey == 'suppId')) ?
-                    `${input.imagePath}/${film[input.displayKey]?.toLowerCase()}_${film.id.toLowerCase()}.${imageType}` :
-                    `${input.imagePath}/${film.id.toLowerCase()}.${imageType}`
-                    }),
-        descriptions: input.movies
-            .filter((film) => film[input.filterKey] != null)
-            .map(input.getDescription),
+            category: input.category,
+            images: input.movies
+                .filter((film) => film[input.filterKey] != null)
+                .map((film) => {return ((input.displayKey == 'actorId') || (input.displayKey == 'suppId')) ?
+                        `${input.imagePath}/${film[input.displayKey]?.toLowerCase()}_${film.id.toLowerCase()}.${imageType}` :
+                        `${input.imagePath}/${film.id.toLowerCase()}.${imageType}`
+                        }),
+            descriptions: input.movies
+                .filter((film) => film[input.filterKey] != null)
+                .map(input.getDescription),
+            dimensions: input.filterKey === "scene" ? [3,2] : [2,3]
         },
     };
   }
