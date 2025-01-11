@@ -43,16 +43,21 @@ function Gallery({ movies }: { movies: Movie[] }) {
   };
 
   const handleFlip = (index: number) => {
-    setFlipped(flipped.map((tile, i) => (i == index ? true : tile)));
+    setFlipped((prev) => prev.map((tile, i) => (i == index ? true : tile)));
     setTimeout(() => {
-      setFlipped(flipped.map((tile, i) => (i == index ? false : tile)));
+      setFlipped((prev) => prev.map((tile, i) => (i == index ? false : tile)));
     }, 1500);
   };
 
   return (
     <div>
       <h3 className="text-base text-center text-gray-800 md:text-lg lg:text-xl">
-        Here are the {movies.length} eligible films for consideration
+        <div>Here are the {movies.length} eligible films for consideration</div>
+        <span className="text-sm lg:text-base italic">
+          {hidden
+            ? "Sort the table by clicking the column headers!"
+            : "Click on a film to see its grade!"}
+        </span>
       </h3>
       <div className="text-center">
         <ControlledSwitch checked={hidden} setChecked={setHidden} />
