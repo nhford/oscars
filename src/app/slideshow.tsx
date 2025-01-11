@@ -160,7 +160,7 @@ export default function Slideshow({ movies }: { movies: Movie[] }) {
       </div>
 
       {/* Gallery Slides */}
-      <div className="w-full h-[500px] md:w-[90%] md:mx-[5%] md:h-[900px] my-4 rounded-lg bg-white">
+      <div className="w-full h-[500px] md:w-[90%] md:mx-[5%] md:h-[600px] lg:h-[900px] my-4 rounded-lg bg-white">
         <CurrentComponent key={currentSlide} {...slides[currentSlide].props} />
       </div>
     </div>
