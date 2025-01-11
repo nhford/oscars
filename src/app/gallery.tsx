@@ -49,7 +49,7 @@ function Gallery({ movies }: { movies: Movie[] }) {
       <div className="text-center">
         <ControlledSwitch checked={hidden} setChecked={setHidden} />
       </div>
-      <div className="h-[512px] md:h-[600px] xl:h-[min(900px,100%)] overflow-y-scroll bg-green-200">
+      <div className="h-[512px] md:h-[600px] xl:h-[900px] overflow-y-scroll bg-green-200">
         {!hidden && (
           <div className="grid gap-3 p-4 grid-cols-[repeat(auto-fit,_minmax(max(45px,_10%),_1fr))] justify-center md:gap-3 xl:p-2">
             {movies.map((film) => (
