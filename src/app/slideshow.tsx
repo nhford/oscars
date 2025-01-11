@@ -133,14 +133,6 @@ export default function Slideshow({ movies }: { movies: Movie[] }) {
 
   return (
     <div className="slideshow-container content-center w-[100%]">
-      {/* Instructions */}
-      <div className="w-full flex items-center justify-center">
-        <i className="text-center sm:my-1">
-          Click on the right side of the slides to advance, and the left side to
-          go back.
-        </i>
-      </div>
-
       {/* Navigation Buttons */}
       <div className="navigation-buttons flex items-center justify-center py-2">
         <button
@@ -157,6 +149,11 @@ export default function Slideshow({ movies }: { movies: Movie[] }) {
         >
           {"Next"}
         </button>
+      </div>
+
+      {/* Instructions */}
+      <div className="w-full flex items-center justify-center">
+        <i className="text-center sm:my-1">Click through the slides!</i>
       </div>
 
       {/* Gallery Slides */}
