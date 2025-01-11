@@ -39,7 +39,7 @@ export default function Winner({
             alt={first[0]}
             width={275} // Adjust based on your layout
             height={450} // Adjust based on your layout
-            className="w-4/6 sm:w-5/6 md:w-[300px] lg:w-[500px] h-auto rounded-lg shadow-lg"
+            className="w-4/6 md:w-[300px] lg:w-[500px] h-auto rounded-lg shadow-lg"
           />
         </div>
       </div>

@@ -10,7 +10,7 @@ function Gallery({ movies }: { movies: Movie[] }) {
   const [hidden, setHidden] = useState(false);
 
   return (
-    <>
+    <div className="">
       <h3 className="text-base text-center text-gray-800 md:text-lg lg:text-xl">
         Here are the {movies.length} eligible films for consideration
       </h3>
@@ -56,7 +56,7 @@ function Gallery({ movies }: { movies: Movie[] }) {
           </div>
         </>
       )}
-    </>
+    </div>
   );
 }
 
