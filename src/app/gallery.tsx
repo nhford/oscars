@@ -11,11 +11,11 @@ type sortkey = "title" | "rating" | "release";
 function Gallery({ movies }: { movies: Movie[] }) {
   const [data, setData] = useState(movies);
   const [hidden, setHidden] = useState(false);
-  const [sorted, setSorted] = useState({ key: "title", dir: "asc" });
+  const [sorted, setSorted] = useState({ key: "title", dir: "desc" });
 
   const sortIcon = (key: sortkey) => {
     return sorted.key === key ? (
-      sorted.dir === "asc" ? (
+      sorted.dir === "desc" ? (
         <span className="text-sm md:text-base align-top">↓</span>
       ) : (
         <span className="text-sm md:text-base align-top">↑</span>
@@ -25,18 +25,30 @@ function Gallery({ movies }: { movies: Movie[] }) {
     );
   };
 
-  const handleSort = (key: sortkey) => {
-    let dir = "desc";
-    if (sorted.key == key && sorted.dir == dir) dir = "asc";
-    const d = dir == "asc" ? -1 : 1;
+  //   export function handleSort(key,[sorted,setSorted,data,setData],natural="desc"){
+  //     let dir = natural;
+  //     if(sorted.key == key && sorted.dir == natural){
+  //       dir = natural == "desc" ? "asc" : "desc";
+  //     }
+  //     setSorted({key,dir});
+  //     let i = dir == "asc" ? 1 : -1;
+  //     setData([...data].sort((a,b) => a[key] < b[key] ? i : -i));
+  // }
+
+  const handleSort = (key: sortkey, start = "asc") => {
+    let dir = start;
+    if (sorted.key == key && sorted.dir == start) {
+      dir = start == "desc" ? "asc" : "desc";
+    }
     setSorted({ key: key, dir: dir });
+    const d = dir == "asc" ? 1 : -1;
     if (key == "title") {
       setData(
-        data.sort((a, b) =>
+        [...data].sort((a, b) =>
           normalizeTitle(a[key]) < normalizeTitle(b[key]) ? d : -d
         )
       );
-    } else setData(data.sort((a, b) => (a[key] < b[key] ? d : -d)));
+    } else setData([...data].sort((a, b) => (a[key] < b[key] ? d : -d)));
   };
 
   return (
@@ -69,7 +81,7 @@ function Gallery({ movies }: { movies: Movie[] }) {
                   <tr>
                     <th
                       className="border border-gray-200 lg:px-4"
-                      onClick={() => handleSort("title")}
+                      onClick={() => handleSort("title", "desc")}
                     >
                       Title {sortIcon("title")}
                     </th>
