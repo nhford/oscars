@@ -25,16 +25,6 @@ function Gallery({ movies }: { movies: Movie[] }) {
     );
   };
 
-  //   export function handleSort(key,[sorted,setSorted,data,setData],natural="desc"){
-  //     let dir = natural;
-  //     if(sorted.key == key && sorted.dir == natural){
-  //       dir = natural == "desc" ? "asc" : "desc";
-  //     }
-  //     setSorted({key,dir});
-  //     let i = dir == "asc" ? 1 : -1;
-  //     setData([...data].sort((a,b) => a[key] < b[key] ? i : -i));
-  // }
-
   const handleSort = (key: sortkey, start = "asc") => {
     let dir = start;
     if (sorted.key == key && sorted.dir == start) {
@@ -52,14 +42,14 @@ function Gallery({ movies }: { movies: Movie[] }) {
   };
 
   return (
-    <div className="h-full bg-red-200 xl:min-h-[800px]">
+    <div className="bg-blue-200">
       <h3 className="text-base text-center text-gray-800 md:text-lg lg:text-xl">
         Here are the {movies.length} eligible films for consideration
       </h3>
       <div className="text-center">
         <ControlledSwitch checked={hidden} setChecked={setHidden} />
       </div>
-      <div className="bg-green-200">
+      <div className="h-[512px] md:h-[600px] xl:h-[min(900px,100%)] overflow-y-scroll bg-green-200">
         {!hidden && (
           <div className="grid gap-3 p-4 grid-cols-[repeat(auto-fit,_minmax(max(45px,_10%),_1fr))] justify-center md:gap-3 xl:p-2">
             {movies.map((film) => (
