@@ -1,6 +1,6 @@
 import Nominees from "./noms";
-import Transition from "./transition";
 import Winner from "./winner";
+import Transition from "./transition";
 
 export interface Movie {
     id: string;
@@ -34,8 +34,20 @@ export interface Nominee {
     getDescription: (film: Movie) => [string,string]
 }
 
+export interface NomineesProp {
+    category: string,
+    images: string[],
+    descriptions: [string,string][],
+    dimensions:[number,number]
+}
+
+export interface NomineeOutput {
+    type: React.ComponentType<NomineesProp>,
+    props: NomineesProp
+}
+
 // TODO: breaks if two noms for 
-export function createNomineeObject(input: Nominee){
+export function createNomineeObject(input: Nominee):NomineeOutput{
     const imageType = input.imagePath == "/film" ? "jpg" : "png";
     return {
         type: Nominees,
@@ -64,7 +76,19 @@ export interface Winner {
     getDescription: (film: Movie) => [string,string]
 }
 
-export function createWinnerObject(input: Winner){
+export interface WinnerProp {
+    category: string,
+    image: string,
+    first: [string,string],
+    second:[string,string]
+}
+
+export interface WinnerOutput {
+    type: React.ComponentType<WinnerProp>,
+    props: WinnerProp
+}
+
+export function createWinnerObject(input: Winner):WinnerOutput{
     const winner = input.movies.filter((film) => film[input.filterKey] == "Winner")[0];
     const second = input.movies.filter((film) => film[input.filterKey] == "Second")[0];
     const imageType = input.imagePath == "/film" ? "jpg" : "png";
@@ -80,4 +104,26 @@ export function createWinnerObject(input: Winner){
             second: input.getDescription(second)
         }
     };
+}
+
+export interface Transition {
+    message:string
+}
+
+export interface TransitionProp {
+    message:string
+}
+
+export interface TransitionOutput {
+    type: React.ComponentType<TransitionProp>,
+    props: TransitionProp
+}
+
+export function createTransitionObject(input:Transition):TransitionOutput {
+    return {
+        type: Transition,
+        props: {
+            message: input.message
+        }
+    }
 }
