@@ -1,4 +1,5 @@
 import Nominees from "./noms";
+import Transition from "./transition";
 import Winner from "./winner";
 
 export interface Movie {
@@ -80,4 +81,3 @@ export function createWinnerObject(input: Winner){
         }
     };
 }
-  

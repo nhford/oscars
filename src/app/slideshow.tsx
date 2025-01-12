@@ -2,14 +2,35 @@
 
 import React, { useState } from "react";
 import { Movie, createNomineeObject, createWinnerObject } from "./util";
+import Transition from "./transition";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import Checkbox from "@mui/material/Checkbox";
 
 export default function Slideshow({ movies }: { movies: Movie[] }) {
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [useTransition, setUseTransition] = useState(true);
 
   // Function to handle slide navigation
-  const handleNext = () =>
-    setCurrentSlide((prev) => Math.min(prev + 1, slides.length));
-  const handlePrev = () => setCurrentSlide((prev) => Math.max(prev - 1, 0));
+  const handleNext = () => {
+    setCurrentSlide((prev) => Math.min(prev + 1, slides.length - 1));
+    if (currentSlide < slides.length - 1) {
+      if (useTransition && slides[currentSlide + 1].type == Transition) {
+        setTimeout(() => {
+          setCurrentSlide((prev) => Math.min(prev + 1, slides.length - 1));
+        }, 1000);
+      } else if (slides[currentSlide + 1].type == Transition) {
+        setCurrentSlide((prev) => Math.min(prev + 1, slides.length - 1));
+      }
+    }
+  };
+  const handlePrev = () => {
+    setCurrentSlide((prev) => Math.max(prev - 1, 0));
+    if (currentSlide >= 0) {
+      if (slides[currentSlide - 1].type == Transition) {
+        setCurrentSlide((prev) => Math.max(prev - 1, 0));
+      }
+    }
+  };
 
   //   TODO: only works if each film has one nom for each category
   const suppNominees = createNomineeObject({
@@ -115,17 +136,27 @@ export default function Slideshow({ movies }: { movies: Movie[] }) {
     getDescription: (film) => [`${film.title}`, `(${film.release})`],
   });
 
+  const transition = {
+    type: Transition,
+    props: {},
+  };
+
   // Example data for the gallery slides
   const slides = [
     suppNominees,
+    transition,
     suppWinner,
     actorNominees,
+    transition,
     actorWinner,
     sceneNominees,
+    transition,
     sceneWinner,
     endingNominees,
+    transition,
     endingWinner,
     movieNominees,
+    transition,
     movieWinner,
   ];
 
@@ -133,6 +164,13 @@ export default function Slideshow({ movies }: { movies: Movie[] }) {
 
   return (
     <div className="slideshow-container content-center w-[100%]">
+      {/* Instructions */}
+      <div className="w-full flex flex-col items-center justify-center">
+        <div className="w-full md:w-1/2 text-center sm:my-1 italic">
+          Click the through the slides!
+        </div>
+      </div>
+
       {/* Navigation Buttons */}
       <div className="navigation-buttons flex items-center justify-center py-2">
         <button
@@ -151,14 +189,40 @@ export default function Slideshow({ movies }: { movies: Movie[] }) {
         </button>
       </div>
 
-      {/* Instructions */}
-      <div className="w-full flex items-center justify-center">
-        <i className="text-center sm:my-1">Click through the slides!</i>
+      {/* Transitions Button */}
+      <div className="w-full flex flex-col items-center justify-center">
+        <div className="w-full md:w-1/2 lg:px-2 text-center">
+          <FormControlLabel
+            control={<Checkbox defaultChecked />}
+            label={"Transitions"}
+            onClick={() => setUseTransition((prev) => !prev)}
+            className="text-xs md:text-sm lg:text-base"
+            labelPlacement="start"
+          />
+        </div>
       </div>
 
       {/* Gallery Slides */}
-      <div className="w-full h-[500px] md:w-[90%] md:mx-[5%] md:h-[600px] lg:h-[900px] my-4 rounded-lg bg-white">
-        <CurrentComponent key={currentSlide} {...slides[currentSlide].props} />
+      <div className="w-full h-[500px] md:w-[90%] md:mx-[5%] md:h-[600px] lg:h-[900px] my-1 md:my-4 rounded-lg bg-white">
+        <div className="relative w-full h-full overflow-y-scroll">
+          {/* Left Click Area */}
+          <div
+            className="absolute top-0 left-0 h-full w-1/2 cursor-pointer"
+            onClick={handlePrev}
+          ></div>
+          {/* Right Click Area */}
+          <div
+            className="absolute top-0 right-0 h-full w-1/2 cursor-pointer"
+            onClick={handleNext}
+          ></div>
+          {/* Slides */}
+          <div className="w-full h-full">
+            <CurrentComponent
+              key={currentSlide}
+              {...slides[currentSlide].props}
+            />
+          </div>
+        </div>
       </div>
     </div>
   );

@@ -5,6 +5,7 @@ import Gallery from "./gallery";
 import Title from "./title";
 import Slideshow from "./slideshow";
 import { Movie, normalizeTitle } from "./util";
+import Signature from "./footer";
 
 const movies: Movie[] = data.sort((a, b) =>
   normalizeTitle(a.title) < normalizeTitle(b.title) ? -1 : 1
@@ -12,7 +13,7 @@ const movies: Movie[] = data.sort((a, b) =>
 
 function Heading2({ text }: { text: string }) {
   return (
-    <h2 className="text-3xl font-bold text-center text-gray-800 md:text-4xl lg:text-5xl my-2 p-1">
+    <h2 className="text-3xl font-bold text-center text-gray-800 md:text-4xl lg:text-5xl my-2 lg:my-4 p-1">
       {text}
     </h2>
   );
@@ -63,9 +64,9 @@ export default function Home() {
               <Gallery movies={movies} />
             </div>
           </div>
-          <div className="w-full md:w-1/2 md:mx-5 mx-0 md:rounded-lg flex my-4 md:my-0">
-            <div className="bg-gray-100 md:rounded-lg w-full h-[600px] md:h-[900px] lg:h-[1200px] md:mt-24">
-              <h2 className="text-3xl font-bold text-center text-gray-800 md:text-4xl lg:text-5xl my-2 p-1 md:py-6">
+          <div className="w-full md:w-1/2 md:mx-5 mx-0 md:rounded-lg flex my-4 md:my-6 justify-center place-self-center">
+            <div className="bg-gray-100 md:rounded-lg w-full h-[750px] md:h-[900px] lg:h-[1200px]">
+              <h2 className="text-3xl font-bold text-center text-gray-800 md:text-4xl lg:text-5xl my-2 p-1 md:pt-6">
                 2024 Awards
               </h2>
               <div className="right_container">
@@ -75,6 +76,7 @@ export default function Home() {
             </div>
           </div>
         </div>
+        <Signature />
       </main>
     </>
   );
