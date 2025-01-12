@@ -14,6 +14,8 @@ import {
   createTransitionObject,
 } from "./util";
 import Transition from "./transition";
+import Nominees from "./noms";
+import Winner from "./winner";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
 
@@ -231,10 +233,21 @@ export default function Slideshow({ movies }: { movies: Movie[] }) {
           ></div>
           {/* Slides */}
           <div className="w-full h-full">
-            <CurrentComponent
-              key={currentSlide}
-              {...slides[currentSlide].props}
-            />
+            {CurrentComponent === Transition && (
+              <CurrentComponent
+                {...(slides[currentSlide].props as TransitionProp)}
+              />
+            )}
+            {CurrentComponent === Nominees && (
+              <CurrentComponent
+                {...(slides[currentSlide].props as NomineesProp)}
+              />
+            )}
+            {CurrentComponent === Winner && (
+              <CurrentComponent
+                {...(slides[currentSlide].props as WinnerProp)}
+              />
+            )}
           </div>
         </div>
       </div>
