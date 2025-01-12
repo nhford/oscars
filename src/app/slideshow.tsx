@@ -1,8 +1,21 @@
 "use client";
 
 import React, { useState } from "react";
-import { Movie, createNomineeObject, createWinnerObject } from "./util";
+import {
+  Movie,
+  WinnerOutput,
+  NomineeOutput,
+  TransitionOutput,
+  NomineesProp,
+  WinnerProp,
+  TransitionProp,
+  createNomineeObject,
+  createWinnerObject,
+  createTransitionObject,
+} from "./util";
 import Transition from "./transition";
+import Nominees from "./noms";
+import Winner from "./winner";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
 
@@ -33,7 +46,7 @@ export default function Slideshow({ movies }: { movies: Movie[] }) {
   };
 
   //   TODO: only works if each film has one nom for each category
-  const suppNominees = createNomineeObject({
+  const suppNominees: NomineeOutput = createNomineeObject({
     category: "Best Supporting Actor Nominees",
     movies: movies,
     filterKey: "supporting",
@@ -45,7 +58,7 @@ export default function Slideshow({ movies }: { movies: Movie[] }) {
     ],
   });
 
-  const suppWinner = createWinnerObject({
+  const suppWinner: WinnerOutput = createWinnerObject({
     category: "Best Supporting Actor",
     movies: movies,
     filterKey: "supporting",
@@ -57,7 +70,7 @@ export default function Slideshow({ movies }: { movies: Movie[] }) {
     ],
   });
 
-  const actorNominees = createNomineeObject({
+  const actorNominees: NomineeOutput = createNomineeObject({
     category: "Best Actor Nominees",
     movies: movies,
     filterKey: "actor",
@@ -69,7 +82,7 @@ export default function Slideshow({ movies }: { movies: Movie[] }) {
     ],
   });
 
-  const actorWinner = createWinnerObject({
+  const actorWinner: WinnerOutput = createWinnerObject({
     category: "Best Actor",
     movies: movies,
     filterKey: "actor",
@@ -81,7 +94,7 @@ export default function Slideshow({ movies }: { movies: Movie[] }) {
     ],
   });
 
-  const sceneNominees = createNomineeObject({
+  const sceneNominees: NomineeOutput = createNomineeObject({
     category: "Best Scene Nominees",
     movies: movies,
     filterKey: "scene",
@@ -89,9 +102,8 @@ export default function Slideshow({ movies }: { movies: Movie[] }) {
     imagePath: "/scene",
     getDescription: (film) => [`${film.title}`, `(${film.sceneTitle})`],
   });
-  console.log(sceneNominees.props.dimensions);
 
-  const sceneWinner = createWinnerObject({
+  const sceneWinner: WinnerOutput = createWinnerObject({
     category: "Best Scene",
     movies: movies,
     filterKey: "scene",
@@ -100,7 +112,7 @@ export default function Slideshow({ movies }: { movies: Movie[] }) {
     getDescription: (film) => [`${film.title}`, `(${film.sceneTitle})`],
   });
 
-  const endingNominees = createNomineeObject({
+  const endingNominees: NomineeOutput = createNomineeObject({
     category: "Best Ending Nominees",
     movies: movies,
     filterKey: "ending",
@@ -109,7 +121,7 @@ export default function Slideshow({ movies }: { movies: Movie[] }) {
     getDescription: (film) => [`${film.title}`, `(${film.release})`],
   });
 
-  const endingWinner = createWinnerObject({
+  const endingWinner: WinnerOutput = createWinnerObject({
     category: "Best Ending",
     movies: movies,
     filterKey: "ending",
@@ -118,7 +130,7 @@ export default function Slideshow({ movies }: { movies: Movie[] }) {
     getDescription: (film) => [`${film.title}`, `(${film.release})`],
   });
 
-  const movieNominees = createNomineeObject({
+  const movieNominees: NomineeOutput = createNomineeObject({
     category: "Best Movie Nominees",
     movies: movies,
     filterKey: "movie",
@@ -127,7 +139,7 @@ export default function Slideshow({ movies }: { movies: Movie[] }) {
     getDescription: (film) => [`${film.title}`, `(${film.release})`],
   });
 
-  const movieWinner = createWinnerObject({
+  const movieWinner: WinnerOutput = createWinnerObject({
     category: "Best Movie",
     movies: movies,
     filterKey: "movie",
@@ -136,13 +148,17 @@ export default function Slideshow({ movies }: { movies: Movie[] }) {
     getDescription: (film) => [`${film.title}`, `(${film.release})`],
   });
 
-  const transition = {
-    type: Transition,
-    props: {},
-  };
+  const transition: TransitionOutput = createTransitionObject({
+    message: "And the winner is...",
+  });
+
+  type Slide =
+    | { type: React.ComponentType<TransitionProp>; props: TransitionProp }
+    | { type: React.ComponentType<NomineesProp>; props: NomineesProp }
+    | { type: React.ComponentType<WinnerProp>; props: WinnerProp };
 
   // Example data for the gallery slides
-  const slides = [
+  const slides: Slide[] = [
     suppNominees,
     transition,
     suppWinner,
@@ -217,10 +233,21 @@ export default function Slideshow({ movies }: { movies: Movie[] }) {
           ></div>
           {/* Slides */}
           <div className="w-full h-full">
-            <CurrentComponent
-              key={currentSlide}
-              {...slides[currentSlide].props}
-            />
+            {CurrentComponent === Transition && (
+              <CurrentComponent
+                {...(slides[currentSlide].props as TransitionProp)}
+              />
+            )}
+            {CurrentComponent === Nominees && (
+              <CurrentComponent
+                {...(slides[currentSlide].props as NomineesProp)}
+              />
+            )}
+            {CurrentComponent === Winner && (
+              <CurrentComponent
+                {...(slides[currentSlide].props as WinnerProp)}
+              />
+            )}
           </div>
         </div>
       </div>
