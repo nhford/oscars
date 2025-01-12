@@ -164,6 +164,13 @@ export default function Slideshow({ movies }: { movies: Movie[] }) {
 
   return (
     <div className="slideshow-container content-center w-[100%]">
+      {/* Instructions */}
+      <div className="w-full flex flex-col items-center justify-center">
+        <div className="w-full md:w-1/2 text-center sm:my-1 italic">
+          Click the through the slides!
+        </div>
+      </div>
+
       {/* Navigation Buttons */}
       <div className="navigation-buttons flex items-center justify-center py-2">
         <button
@@ -182,11 +189,8 @@ export default function Slideshow({ movies }: { movies: Movie[] }) {
         </button>
       </div>
 
-      {/* Instructions */}
+      {/* Transitions Button */}
       <div className="w-full flex flex-col items-center justify-center">
-        <div className="w-full md:w-1/2 text-center sm:my-1 italic">
-          Click the through the slides!
-        </div>
         <div className="w-full md:w-1/2 lg:px-2 text-center">
           <FormControlLabel
             control={<Checkbox defaultChecked />}
@@ -195,18 +199,12 @@ export default function Slideshow({ movies }: { movies: Movie[] }) {
             className="text-xs md:text-sm lg:text-base"
             labelPlacement="start"
           />
-          {/* <button
-            className="prev-button bg-gray-300 px-4 py-2 rounded disabled:opacity-50"
-            onClick={() => setUseTransition((prev) => !prev)}
-          >
-            {useTransition ? "Disable Transitions" : "Enable Transitions"}
-          </button> */}
         </div>
       </div>
 
       {/* Gallery Slides */}
-      <div className="w-full h-[500px] md:w-[90%] md:mx-[5%] md:h-[600px] lg:h-[900px] my-4 rounded-lg bg-white">
-        <div className="relative w-full h-full">
+      <div className="w-full h-[500px] md:w-[90%] md:mx-[5%] md:h-[600px] lg:h-[900px] my-1 md:my-4 rounded-lg bg-white">
+        <div className="relative w-full h-full overflow-y-scroll">
           {/* Left Click Area */}
           <div
             className="absolute top-0 left-0 h-full w-1/2 cursor-pointer"

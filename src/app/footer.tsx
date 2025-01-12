@@ -9,6 +9,7 @@ function VenmoIcon({ size = 30 }) {
         style={{ color: "black" }}
         target="_blank"
         rel="noopener noreferrer"
+        className="p-2"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -31,7 +32,7 @@ export default function Signature() {
   const iconSize = 30;
 
   return (
-    <div className="text-center h-full w-full py-6 mt-6 bg-gray-100 lg:py-10">
+    <div className="text-center h-full w-full py-6 md:mt-6 md:bg-gray-100 lg:py-10">
       <p className="">Created by Noah Ford, UMass CICS &apos;26</p>
 
       <div className="flex items-center h-full w-full justify-center">
@@ -39,6 +40,7 @@ export default function Signature() {
           href="https://github.com/NFordUMass"
           target="_blank"
           rel="noopener noreferrer"
+          className="p-2"
         >
           <GitHubIcon
             className="icon"
@@ -49,6 +51,7 @@ export default function Signature() {
           href="https://www.linkedin.com/in/nhford/"
           target="_blank"
           rel="noopener noreferrer"
+          className="p-2"
         >
           <LinkedInIcon
             className="icon"
