@@ -5,6 +5,7 @@ import Gallery from "./gallery";
 import Title from "./title";
 import Slideshow from "./slideshow";
 import { Movie, normalizeTitle } from "./util";
+import Signature from "./footer";
 
 const movies: Movie[] = data.sort((a, b) =>
   normalizeTitle(a.title) < normalizeTitle(b.title) ? -1 : 1
@@ -75,6 +76,7 @@ export default function Home() {
             </div>
           </div>
         </div>
+        <Signature />
       </main>
     </>
   );
