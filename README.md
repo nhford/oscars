@@ -6,7 +6,7 @@
 
 ## Overview
 
-Noah Oscars is an interactive dashboard summarizing the films I've seen in 2024. What started as a google slideshow last year, I ramped it up into a React project hosted built with Next.js deployed on Vercel. The main emphasis of this project was to work with more dynamic components in React: a slideshow with transitions that toggle on/off, components that when clicked flip on a timer to a backside, a sortable table contained with a scroll, and dynamic sizing to give widescreen viewers a different layout that mobile users. The data comes from a json I manually put together based on reviews I wrote through throughout the year.
+Noah Oscars is an interactive dashboard summarizing the films I've seen in 2024. What I started as a google slideshow last year, I ramped up this year into a React project built with Next.js deployed on Vercel. The main emphasis of this project was to work with more dynamic components in React: a slideshow with transitions that toggle on/off, components that when clicked flip to a backside and turn back on a timer, a sortable table contained with a scroll, and dynamic sizing to give widescreen viewers a different layout that mobile users. The data comes from a json I manually put together based on reviews I wrote through throughout the year.
 
 ## Key Features:
 
