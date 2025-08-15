@@ -33,11 +33,11 @@ export default function Signature() {
 
   return (
     <div className="text-center h-full w-full py-6 md:mt-6 md:bg-gray-100 lg:py-10">
-      <p className="">Created by Noah Ford, UMass CICS &apos;26</p>
+      <p className="">Created by Noah Ford, UMass CICS &apos;25</p>
 
       <div className="flex items-center h-full w-full justify-center">
         <a
-          href="https://github.com/NFordUMass"
+          href="https://github.com/nhford/oscars"
           target="_blank"
           rel="noopener noreferrer"
           className="p-2"
