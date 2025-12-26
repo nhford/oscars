@@ -1,22 +1,27 @@
 "use client";
 
 import Film from "./film";
-import PropTypes from "prop-types";
 import { Movie, normalizeTitle } from "./util";
 import ControlledSwitch from "./switch";
 import { useState } from "react";
 
 type sortkey = "title" | "rating" | "release";
 
-function Gallery({ movies }: { movies: Movie[] }) {
-  const [data, setData] = useState(movies);
+interface GalleryProps {
+  movies: Movie[];
+}
+
+function Gallery({ movies }: GalleryProps) {
   const [hidden, setHidden] = useState(false);
-  const [sorted, setSorted] = useState({ key: "title", dir: "desc" });
+  const [sorted, setSorted] = useState<{ key: sortkey; desc: boolean }>({
+    key: "title",
+    desc: false,
+  });
   const [flipped, setFlipped] = useState(Array(movies.length).fill(false));
 
   const sortIcon = (key: sortkey) => {
     return sorted.key === key ? (
-      sorted.dir === "desc" ? (
+      sorted.desc ? (
         <span className="text-sm md:text-base align-top">↓</span>
       ) : (
         <span className="text-sm md:text-base align-top">↑</span>
@@ -24,22 +29,6 @@ function Gallery({ movies }: { movies: Movie[] }) {
     ) : (
       <span className="text-sm md:text-base align-middle font-thin">-</span>
     );
-  };
-
-  const handleSort = (key: sortkey, start = "asc") => {
-    let dir = start;
-    if (sorted.key == key && sorted.dir == start) {
-      dir = start == "desc" ? "asc" : "desc";
-    }
-    setSorted({ key: key, dir: dir });
-    const d = dir == "asc" ? 1 : -1;
-    if (key == "title") {
-      setData(
-        [...data].sort((a, b) =>
-          normalizeTitle(a[key]) < normalizeTitle(b[key]) ? d : -d
-        )
-      );
-    } else setData([...data].sort((a, b) => (a[key] < b[key] ? d : -d)));
   };
 
   const handleFlip = (index: number) => {
@@ -82,6 +71,7 @@ function Gallery({ movies }: { movies: Movie[] }) {
                   <Film
                     key={film.id}
                     name={film.id}
+                    year={film.watched}
                     title={film.title}
                     path={"film"}
                     type="jpg"
@@ -112,39 +102,57 @@ function Gallery({ movies }: { movies: Movie[] }) {
                   <tr>
                     <th
                       className="border border-gray-200 lg:px-4"
-                      onClick={() => handleSort("title", "desc")}
+                      onClick={() =>
+                        setSorted({ key: "title", desc: !sorted["desc"] })
+                      }
                     >
                       Title {sortIcon("title")}
                     </th>
                     <th
                       className="border border-gray-200 lg:px-2 min-w-[60px]"
-                      onClick={() => handleSort("rating")}
+                      onClick={() =>
+                        setSorted({ key: "rating", desc: !sorted["desc"] })
+                      }
                     >
                       Grade {sortIcon("rating")}
                     </th>
                     <th
                       className="border border-gray-200 lg:px-4"
-                      onClick={() => handleSort("release")}
+                      onClick={() =>
+                        setSorted({ key: "release", desc: !sorted["desc"] })
+                      }
                     >
                       Year {sortIcon("release")}
                     </th>
                   </tr>
                 </thead>
                 <tbody>
-                  {data.map((row) => (
-                    <tr className="text-sm xl:text-base" key={row.id}>
-                      <td className="border border-gray-200 px-1">
-                        {row.title}
-                      </td>
-                      <td className="border border-gray-200 text-center px-2">
-                        {" "}
-                        {row.grade}
-                      </td>
-                      <td className="border border-gray-200 text-center px-2">
-                        {row.release}
-                      </td>
-                    </tr>
-                  ))}
+                  {movies
+                    .sort((a, b) => {
+                      const dir = sorted["desc"] ? 1 : -1;
+                      if (sorted["key"] == "title") {
+                        return normalizeTitle(a["title"]) <
+                          normalizeTitle(b["title"])
+                          ? dir
+                          : -dir;
+                      } else {
+                        return a[sorted["key"]] < b[sorted["key"]] ? dir : -dir;
+                      }
+                    })
+                    .map((row) => (
+                      <tr className="text-sm xl:text-base" key={row.id}>
+                        <td className="border border-gray-200 px-1">
+                          {row.title}
+                        </td>
+                        <td className="border border-gray-200 text-center px-2">
+                          {" "}
+                          {row.grade}
+                        </td>
+                        <td className="border border-gray-200 text-center px-2">
+                          {row.release}
+                        </td>
+                      </tr>
+                    ))}
                 </tbody>
               </table>
             </div>
@@ -154,10 +162,5 @@ function Gallery({ movies }: { movies: Movie[] }) {
     </div>
   );
 }
-
-Gallery.proptypes = {
-  movies: PropTypes.object.isRequired,
-  path: PropTypes.string.isRequired,
-};
 
 export default Gallery;
