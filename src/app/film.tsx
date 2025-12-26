@@ -6,11 +6,12 @@ import Image from "next/image";
 interface FilmProps {
   name: string;
   title: string;
+  year: number;
   path: string;
   type: string;
 }
 
-function Film({ name, title, path, type }: FilmProps) {
+function Film({ name, title, year, path, type }: FilmProps) {
   const [isFlipped, setIsFlipped] = useState(false);
 
   const handleClick = () => {
@@ -24,7 +25,7 @@ function Film({ name, title, path, type }: FilmProps) {
       {/* <div className="film-front"> */}
       <Image
         className="rounded-lg"
-        src={`/${path}/${name}.${type}`}
+        src={`/${year}/${path}/${name}.${type}`}
         alt={title}
         width={200}
         height={200}

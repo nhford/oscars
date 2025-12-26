@@ -56,8 +56,8 @@ export function createNomineeObject(input: Nominee):NomineeOutput{
             images: input.movies
                 .filter((film) => film[input.filterKey] != null)
                 .map((film) => {return ((input.displayKey == 'actorId') || (input.displayKey == 'suppId')) ?
-                        `${input.imagePath}/${film[input.displayKey]?.toLowerCase()}_${film.id.toLowerCase()}.${imageType}` :
-                        `${input.imagePath}/${film.id}.${imageType}`
+                        `/${film.watched.toString()}${input.imagePath}/${film[input.displayKey]?.toLowerCase()}_${film.id.toLowerCase()}.${imageType}` :
+                        `/${film.watched.toString()}${input.imagePath}/${film.id}.${imageType}`
                         }),
             descriptions: input.movies
                 .filter((film) => film[input.filterKey] != null)
@@ -97,8 +97,8 @@ export function createWinnerObject(input: Winner):WinnerOutput{
         props: {
             category:input.category,
             image: ((input.displayKey == 'actorId') || (input.displayKey == 'suppId')) ?
-                        `${input.imagePath}/${winner[input.displayKey]?.toLowerCase()}_${winner.id.toLowerCase()}.${imageType}` :
-                        `${input.imagePath}/${winner.id}.${imageType}`
+                        `/${winner.watched.toString()}${input.imagePath}/${winner[input.displayKey]?.toLowerCase()}_${winner.id.toLowerCase()}.${imageType}` :
+                        `/${winner.watched.toString()}${input.imagePath}/${winner.id}.${imageType}`
                     ,
             first: input.getDescription(winner),
             second: input.getDescription(second)

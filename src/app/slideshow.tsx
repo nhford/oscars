@@ -191,6 +191,13 @@ export default function Slideshow({ movies }: { movies: Movie[] }) {
       <div className="navigation-buttons flex items-center justify-center py-2">
         <button
           className="prev-button bg-gray-300 px-4 py-2 rounded disabled:opacity-50"
+          onClick={() => setCurrentSlide(0)}
+          disabled={currentSlide === 0}
+        >
+          {"Jump to Start"}
+        </button>
+        <button
+          className="prev-button bg-gray-300 px-4 py-2 rounded disabled:opacity-50"
           onClick={handlePrev}
           disabled={currentSlide === 0}
         >

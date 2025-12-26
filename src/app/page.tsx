@@ -1,4 +1,6 @@
 "use client";
+import React, { useState } from "react";
+
 import record from "./assets/movies";
 import Gallery from "./gallery";
 import Title from "./title";
@@ -25,21 +27,38 @@ function Category({ title }: { title: string }) {
 }
 
 export default function Home() {
+  const [year, setYear] = useState(2025);
+
   return (
     <>
       <main>
         <Title />
         <div className="flex flex-col md:flex-row">
           <div className="w-full md:w-1/2 md:mx-5 mx-0 bg-gray-100 md:rounded-lg">
-            <Heading2 text="How it Works" />
+            <div className="text-center">
+              <Heading2 text="How it Works" />
+              {/* Set Year */}
+              {[2024, 2025].map((yr) => (
+                <button
+                  className="prev-button bg-gray-300 px-4 py-2 rounded disabled:opacity-50"
+                  onClick={() => setYear(yr)}
+                  disabled={year === yr}
+                  key={yr}
+                >
+                  {yr}
+                </button>
+              ))}
+            </div>
+
             <div className="left_container">
               <p className="text-base text-justify text-gray-800 md:text-lg lg:text-xl mx-2 p-2">
                 Instead of giving awards to the best of cinema <i>released</i>{" "}
-                in 2024, the Noah Oscars considers those films I <i>watched</i>{" "}
-                in 2024, regardless of their theatrical release year. While the
-                Oscars has twenty categories most of which you can skip through,
-                the Noah Oscars is mindful of its audience&apos;s attention span
-                and gives out only five key awards.
+                in a given year, the Noah Oscars considers those films I{" "}
+                <i>watched</i> in said year, regardless of their theatrical
+                release year. While the Oscars has twenty categories most of
+                which you can skip through, the Noah Oscars is mindful of its
+                audience&apos;s attention span and gives out only five key
+                awards.
               </p>
               <h3 className="text-lg font-bold text-center text-gray-800 md:text-1.5xl lg:text-2xl m-1 p-1">
                 The Categories
@@ -58,16 +77,20 @@ export default function Home() {
               <h3 className="text-lg font-bold text-center text-gray-800 md:text-1.5xl lg:text-2xl m-1 p-1">
                 Movies I&apos;ve Watched This Year
               </h3>
-              <Gallery movies={movies} />
+              <Gallery
+                movies={movies.filter((movie) => movie.watched == year)}
+              />
             </div>
           </div>
           <div className="w-full md:w-1/2 md:mx-5 mx-0 md:rounded-lg flex my-4 md:my-6 justify-center place-self-center">
             <div className="bg-gray-100 md:rounded-lg w-full h-[750px] md:h-[900px] lg:h-[1200px]">
               <h2 className="text-3xl font-bold text-center text-gray-800 md:text-4xl lg:text-5xl my-2 p-1 md:pt-6">
-                2024 Awards
+                {year} Awards
               </h2>
               <div className="right_container">
-                <Slideshow movies={movies} />
+                <Slideshow
+                  movies={movies.filter((movie) => movie.watched == year)}
+                />
                 <div className="">{/* Controls */}</div>
               </div>
             </div>
