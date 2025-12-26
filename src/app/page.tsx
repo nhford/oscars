@@ -7,6 +7,7 @@ import Title from "./title";
 import Slideshow from "./slideshow";
 import { Movie } from "./util";
 import Signature from "./footer";
+import YearToggle from "./year_toggle";
 
 const movies: Movie[] = Object.values(record);
 
@@ -37,17 +38,9 @@ export default function Home() {
           <div className="w-full md:w-1/2 md:mx-5 mx-0 bg-gray-100 md:rounded-lg">
             <div className="text-center">
               <Heading2 text="How it Works" />
-              {/* Set Year */}
-              {[2024, 2025].map((yr) => (
-                <button
-                  className="prev-button bg-gray-300 px-4 py-2 rounded disabled:opacity-50"
-                  onClick={() => setYear(yr)}
-                  disabled={year === yr}
-                  key={yr}
-                >
-                  {yr}
-                </button>
-              ))}
+              <div className="text-center p-1">
+                <YearToggle year={year} setYear={setYear} />
+              </div>
             </div>
 
             <div className="left_container">
@@ -74,7 +67,7 @@ export default function Home() {
                   <Category key={i} title={x} />
                 ))}
               </>
-              <h3 className="text-lg font-bold text-center text-gray-800 md:text-1.5xl lg:text-2xl m-1 p-1">
+              <h3 className="text-lg font-bold text-center text-gray-800 md:text-1.5xl lg:text-2xl m-1 pt-0.5">
                 Movies I&apos;ve Watched This Year
               </h3>
               <Gallery
@@ -88,8 +81,10 @@ export default function Home() {
                 {year} Awards
               </h2>
               <div className="right_container">
+                <YearToggle year={year} setYear={setYear} />
                 <Slideshow
                   movies={movies.filter((movie) => movie.watched == year)}
+                  year={year}
                 />
                 <div className="">{/* Controls */}</div>
               </div>

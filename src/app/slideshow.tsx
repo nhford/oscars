@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Movie,
   WinnerOutput,
@@ -19,9 +19,19 @@ import Winner from "./winner";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
 
-export default function Slideshow({ movies }: { movies: Movie[] }) {
+export default function Slideshow({
+  movies,
+  year,
+}: {
+  movies: Movie[];
+  year: number;
+}) {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [useTransition, setUseTransition] = useState(true);
+
+  useEffect(() => {
+    setCurrentSlide(0);
+  }, [year]);
 
   // Function to handle slide navigation
   const handleNext = () => {
@@ -52,10 +62,8 @@ export default function Slideshow({ movies }: { movies: Movie[] }) {
     filterKey: "supporting",
     displayKey: "suppId",
     imagePath: "/supp",
-    getDescription: (film) => [
-      `${film.suppName}`,
-      `${film.title} (${film.release})`,
-    ],
+    getDescription: (film) =>
+      film.suppName.map((supp) => [supp, `${film.title} (${film.release})`]),
   });
 
   const suppWinner: WinnerOutput = createWinnerObject({
@@ -64,8 +72,8 @@ export default function Slideshow({ movies }: { movies: Movie[] }) {
     filterKey: "supporting",
     displayKey: "suppId",
     imagePath: "/supp",
-    getDescription: (film) => [
-      `${film.suppName}`,
+    getDescription: (film, idx) => [
+      `${film.suppName[idx]}`,
       `${film.title} (${film.release})`,
     ],
   });
@@ -76,10 +84,8 @@ export default function Slideshow({ movies }: { movies: Movie[] }) {
     filterKey: "actor",
     displayKey: "actorId",
     imagePath: "/actor",
-    getDescription: (film) => [
-      `${film.actorName}`,
-      `${film.title} (${film.release})`,
-    ],
+    getDescription: (film) =>
+      film.actorName.map((actor) => [actor, `${film.title} (${film.release})`]),
   });
 
   const actorWinner: WinnerOutput = createWinnerObject({
@@ -88,8 +94,8 @@ export default function Slideshow({ movies }: { movies: Movie[] }) {
     filterKey: "actor",
     displayKey: "actorId",
     imagePath: "/actor",
-    getDescription: (film) => [
-      `${film.actorName}`,
+    getDescription: (film, idx) => [
+      `${film.actorName[idx]}`,
       `${film.title} (${film.release})`,
     ],
   });
@@ -100,7 +106,8 @@ export default function Slideshow({ movies }: { movies: Movie[] }) {
     filterKey: "scene",
     displayKey: "id",
     imagePath: "/scene",
-    getDescription: (film) => [`${film.title}`, `(${film.sceneTitle})`],
+    getDescription: (film) =>
+      film.sceneTitle.map((sceneTitle) => [`${film.title}`, sceneTitle]),
   });
 
   const sceneWinner: WinnerOutput = createWinnerObject({
@@ -109,7 +116,10 @@ export default function Slideshow({ movies }: { movies: Movie[] }) {
     filterKey: "scene",
     displayKey: "id",
     imagePath: "/film",
-    getDescription: (film) => [`${film.title}`, `(${film.sceneTitle})`],
+    getDescription: (film, idx) => [
+      `${film.title}`,
+      `(${film.sceneTitle[idx]})`,
+    ],
   });
 
   const endingNominees: NomineeOutput = createNomineeObject({
@@ -118,7 +128,7 @@ export default function Slideshow({ movies }: { movies: Movie[] }) {
     filterKey: "ending",
     displayKey: "id",
     imagePath: "/film",
-    getDescription: (film) => [`${film.title}`, `(${film.release})`],
+    getDescription: (film) => [[`${film.title}`, `(${film.release})`]],
   });
 
   const endingWinner: WinnerOutput = createWinnerObject({
@@ -136,7 +146,7 @@ export default function Slideshow({ movies }: { movies: Movie[] }) {
     filterKey: "movie",
     displayKey: "id",
     imagePath: "/film",
-    getDescription: (film) => [`${film.title}`, `(${film.release})`],
+    getDescription: (film) => [[`${film.title}`, `(${film.release})`]],
   });
 
   const movieWinner: WinnerOutput = createWinnerObject({
@@ -226,8 +236,8 @@ export default function Slideshow({ movies }: { movies: Movie[] }) {
       </div>
 
       {/* Gallery Slides */}
-      <div className="w-full h-[500px] md:w-[90%] md:mx-[5%] md:h-[600px] lg:h-[900px] my-1 md:my-4 rounded-lg bg-white">
-        <div className="relative w-full h-full overflow-y-scroll">
+      <div className="w-full sm:h-[500px] md:w-[90%] md:mx-[5%] md:h-[600px] lg:h-[900px] my-1 md:my-4 rounded-lg bg-white">
+        <div className="relative w-full h-full sm:overflow-y-scroll">
           {/* Left Click Area */}
           <div
             className="absolute top-0 left-0 h-full w-1/2 cursor-pointer"
