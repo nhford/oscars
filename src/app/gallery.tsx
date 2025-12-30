@@ -17,7 +17,7 @@ function Gallery({ movies }: GalleryProps) {
     key: "title",
     desc: false,
   });
-  const [flipped, setFlipped] = useState(Array(movies.length).fill(false));
+  const [flipped, setFlipped] = useState<Record<string, boolean>>({});
 
   const sortIcon = (key: sortkey) => {
     return sorted.key === key ? (
@@ -31,10 +31,10 @@ function Gallery({ movies }: GalleryProps) {
     );
   };
 
-  const handleFlip = (index: number) => {
-    setFlipped((prev) => prev.map((tile, i) => (i == index ? true : tile)));
+  const handleFlip = (id: string) => {
+    setFlipped((prev) => ({ ...prev, [id]: true }));
     setTimeout(() => {
-      setFlipped((prev) => prev.map((tile, i) => (i == index ? false : tile)));
+      setFlipped((prev) => ({ ...prev, [id]: false }));
     }, 1500);
   };
 
@@ -54,18 +54,18 @@ function Gallery({ movies }: GalleryProps) {
       <div className="sm:h-[512px] md:h-[600px] xl:h-[900px] md:overflow-y-scroll">
         {!hidden && (
           <div className="grid gap-1.5 p-4 grid-cols-[repeat(auto-fit,_minmax(max(60px,_10%),_1fr))] justify-center md:gap-3 xl:p-2">
-            {movies.map((film, index) => (
+            {movies.map((film) => (
               <div
                 key={film.id}
                 className={`relative transform-style-preserve-3d transition-transform duration-500 ${
-                  flipped[index] ? "rotate-y-180" : ""
+                  flipped[film.id] ? "rotate-y-180" : ""
                 }`}
-                onClick={() => handleFlip(index)}
+                onClick={() => handleFlip(film.id)}
               >
                 {/* Front Side */}
                 <div
                   className={`backface-hidden ${
-                    flipped[index] ? "hidden" : ""
+                    flipped[film.id] ? "hidden" : ""
                   }`}
                 >
                   <Film
@@ -80,7 +80,7 @@ function Gallery({ movies }: GalleryProps) {
                 {/* Back Side */}
                 <div
                   className={`flex items-center justify-center h-full w-full backface-hidden rotate-y-180 ${
-                    flipped[index] ? "" : "hidden"
+                    flipped[film.id] ? "" : "hidden"
                   }`}
                 >
                   <div className="text-center">
@@ -127,7 +127,7 @@ function Gallery({ movies }: GalleryProps) {
                   </tr>
                 </thead>
                 <tbody>
-                  {movies
+                  {[...movies]
                     .sort((a, b) => {
                       const dir = sorted["desc"] ? 1 : -1;
                       if (sorted["key"] == "title") {
