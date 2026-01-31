@@ -5,13 +5,14 @@ import { Movie, normalizeTitle } from "./util";
 import ControlledSwitch from "./switch";
 import { useState } from "react";
 
-type sortkey = "title" | "rating" | "release";
+type sortkey = "title" | "rating" | "release" | "watched";
 
 interface GalleryProps {
+  year: string;
   movies: Movie[];
 }
 
-function Gallery({ movies }: GalleryProps) {
+function Gallery({ year, movies }: GalleryProps) {
   const [hidden, setHidden] = useState(false);
   const [sorted, setSorted] = useState<{ key: sortkey; desc: boolean }>({
     key: "title",
@@ -57,7 +58,7 @@ function Gallery({ movies }: GalleryProps) {
             {movies.map((film) => (
               <div
                 key={film.id}
-                className={`relative transform-style-preserve-3d transition-transform duration-500 ${
+                className={`relative transform-style-preserve-3d transition-transform duration-500 cursor-pointer ${
                   flipped[film.id] ? "rotate-y-180" : ""
                 }`}
                 onClick={() => handleFlip(film.id)}
@@ -122,8 +123,20 @@ function Gallery({ movies }: GalleryProps) {
                         setSorted({ key: "release", desc: !sorted["desc"] })
                       }
                     >
-                      Year {sortIcon("release")}
+                      Release {sortIcon("release")}
                     </th>
+                    {year == "All-Time" ? (
+                      <th
+                        className="border border-gray-200 lg:px-4"
+                        onClick={() =>
+                          setSorted({ key: "watched", desc: !sorted["desc"] })
+                        }
+                      >
+                        Watched {sortIcon("watched")}
+                      </th>
+                    ) : (
+                      ""
+                    )}
                   </tr>
                 </thead>
                 <tbody>
@@ -151,6 +164,13 @@ function Gallery({ movies }: GalleryProps) {
                         <td className="border border-gray-200 text-center px-2">
                           {row.release}
                         </td>
+                        {year == "All-Time" ? (
+                          <td className="border border-gray-200 text-center px-2">
+                            {row.watched}
+                          </td>
+                        ) : (
+                          ""
+                        )}
                       </tr>
                     ))}
                 </tbody>
