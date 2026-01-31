@@ -46,7 +46,6 @@ export interface NomineeOutput {
     props: NomineesProp
 }
 
-// TODO: attempt to be robust for movies with multiple noms
 export function createNomineeObject(input: Nominee):NomineeOutput{
     const imageType = input.imagePath == "/film" ? "jpg" : "png";
     const films_with_nominees = input.movies

@@ -28,7 +28,8 @@ function Category({ title }: { title: string }) {
 }
 
 export default function Home() {
-  const [year, setYear] = useState(2025);
+  const [year, setYear] = useState("2025");
+  const numeric_year = year == "All-Time" ? 2025 : parseInt(year);
 
   return (
     <>
@@ -39,7 +40,11 @@ export default function Home() {
             <div className="text-center">
               <Heading2 text="How it Works" />
               <div className="text-center p-1">
-                <YearToggle year={year} setYear={setYear} />
+                <YearToggle
+                  year={year}
+                  setYear={setYear}
+                  options={["2023", "2024", "2025", "All-Time"]}
+                />
               </div>
             </div>
 
@@ -68,23 +73,33 @@ export default function Home() {
                 ))}
               </>
               <h3 className="text-lg font-bold text-center text-gray-800 md:text-1.5xl lg:text-2xl m-1 pt-0.5">
-                Movies I&apos;ve Watched This Year
+                Movies I&apos;ve Watched{" "}
+                {year == "All-Time" ? year : "This Year"}
               </h3>
               <Gallery
-                movies={movies.filter((movie) => movie.watched == year)}
+                year={year}
+                movies={movies.filter((movie) =>
+                  year == "All-Time" ? true : movie.watched == numeric_year,
+                )}
               />
             </div>
           </div>
           <div className="w-full md:w-1/2 md:mx-5 mx-0 md:rounded-lg flex my-4 md:my-6 justify-center place-self-center">
             <div className="bg-gray-100 md:rounded-lg w-full h-[750px] md:h-[900px] lg:h-[1200px]">
               <h2 className="text-3xl font-bold text-center text-gray-800 md:text-4xl lg:text-5xl my-2 p-1 md:pt-6">
-                {year} Awards
+                {numeric_year} Awards
               </h2>
               <div className="right_container">
-                <YearToggle year={year} setYear={setYear} />
-                <Slideshow
-                  movies={movies.filter((movie) => movie.watched == year)}
+                <YearToggle
                   year={year}
+                  setYear={setYear}
+                  options={["2023", "2024", "2025"]}
+                />
+                <Slideshow
+                  movies={movies.filter(
+                    (movie) => movie.watched == numeric_year,
+                  )}
+                  year={numeric_year}
                 />
                 <div className="">{/* Controls */}</div>
               </div>

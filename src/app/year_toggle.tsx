@@ -1,13 +1,18 @@
 interface YearToggleProps {
-  year: number;
-  setYear: (year: number) => void;
+  year: string;
+  setYear: (year: string) => void;
+  options: string[];
 }
 
-export default function YearToggle({ year, setYear }: YearToggleProps) {
+export default function YearToggle({
+  year,
+  setYear,
+  options = ["2023", "2024", "2025", "All-Time"],
+}: YearToggleProps) {
   {
     return (
       <div className="text-center p-1">
-        {[2023, 2024, 2025].map((yr) => (
+        {options.map((yr) => (
           <button
             key={yr}
             onClick={() => setYear(yr)}
