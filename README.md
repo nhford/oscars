@@ -1,48 +1,48 @@
 # Noah Oscars
 
-## Check it Out!
+**Live:** [oscars-noah.vercel.app](https://oscars-noah.vercel.app/)
 
-[oscars-noah.vercel.app/](oscars-noah.vercel.app/)
+Interactive dashboard of films I’ve watched, scored, and awarded — currently **2023, 2024, and 2025** (115 titles). Awards follow the year I *watched* a movie, not the theatrical release year. Five categories: Best Supporting Actor, Best Actor, Best Scene, Best Ending, and Best Movie.
 
-## Overview
+What started as a Google slideshow is a Next.js app on Vercel. The point of the project was dynamic React: a slideshow with optional transitions, posters that flip to a grade then flip back, a sortable table inside a scroll pane, and a two-column layout that collapses on mobile.
 
-Noah Oscars is an interactive dashboard summarizing the films I've seen in 2023, 2024, and 2025. What I started as a google slideshow last year, I ramped up this year into a React project built with Next.js deployed on Vercel. The main emphasis of this project was to work with more dynamic components in React: a slideshow with transitions that toggle on/off, components that when clicked flip to a backside and turn back on a timer, a sortable table contained with a scroll, and dynamic sizing to give widescreen viewers a different layout that mobile users. The data comes from a json I manually put together based on reviews I wrote through throughout the year.
+## What it does
 
-## Key Features:
+- **Year toggle** — 2023 / 2024 / 2025, plus All-Time for the gallery.
+- **Gallery** — Poster grid (click to flip and see the grade) or a sortable table of title, rating, release year, and watched year.
+- **Awards slideshow** — Nominees and winners for the five categories, with a checkbox to turn transitions off.
+- **Data** — Hand-curated `src/app/assets/movies.json` (ids, ratings, grades, nominee/winner flags). `convert-sheet.ipynb` turns a spreadsheet / CSV into that JSON.
 
-- Slideshow with slides dynamically rendered from json input
-- Review data of 45 films viewable in sorted table form or as grid of clickable posters
-- Tailwind styling inside of react class-naming, meaning minimal css presence
+## Stack
 
-### Technologies Used
+- Next.js 15 (App Router) + React 19 + TypeScript
+- Tailwind CSS + MUI
+- Deployed on Vercel
+- No backend: the movie list is a committed JSON file
 
-#### Frontend:
+## Local development
 
-- ReactJS
-- Tailwind and CSS
-- Deployed via Vercel
+```bash
+npm install
+npm run dev
+```
 
-#### Backend:
+To refresh `movies.json` from a sheet, run `convert-sheet.ipynb` (expects columns matching the JSON fields) and drop poster / nominee images under `public/`.
 
-- N/A
+## Project layout
 
-#### Database:
+```
+src/app/
+  page.tsx              # year toggle, gallery, slideshow
+  gallery.tsx           # poster grid + sortable table
+  slideshow.tsx         # awards deck
+  film.tsx / noms.tsx / winner.tsx / transition.tsx
+  assets/movies.json    # source of truth for titles and awards
+public/                 # posters and nominee stills
+convert-sheet.ipynb     # CSV → movies.json
+```
 
-- Manually curated json file
+## Possible next work
 
-## Architecture
-
-The application consists of two main parts:
-
-## Deployment
-
-The frontend is deployed to the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme), the natural extension from being a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
-
-- This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Next Steps
-
-- Add previous years data for my own dashboard
-- Allow users to create their own dashboard
-  - from their own selection of movies they've imported or selected on the site
-  - auto-generate recommendations for award winners based on input
+- Add a 2026 season when the year wraps
+- Let visitors build their own watch-year ballot from an imported list
